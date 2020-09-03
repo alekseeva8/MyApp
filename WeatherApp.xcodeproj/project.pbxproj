@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE082501081500D5D3EA /* AppDelegate.swift */; };
 		F340DE0B2501081500D5D3EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE0A2501081500D5D3EA /* SceneDelegate.swift */; };
-		F340DE0D2501081500D5D3EA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE0C2501081500D5D3EA /* ViewController.swift */; };
+		F340DE0D2501081500D5D3EA /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE0C2501081500D5D3EA /* TodayViewController.swift */; };
 		F340DE102501081500D5D3EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F340DE0E2501081500D5D3EA /* Main.storyboard */; };
 		F340DE122501081700D5D3EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F340DE112501081700D5D3EA /* Assets.xcassets */; };
 		F340DE152501081700D5D3EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F340DE132501081700D5D3EA /* LaunchScreen.storyboard */; };
+		F340DE1D2501094B00D5D3EA /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F340DE052501081500D5D3EA /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F340DE082501081500D5D3EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F340DE0A2501081500D5D3EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F340DE0C2501081500D5D3EA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F340DE0C2501081500D5D3EA /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		F340DE0F2501081500D5D3EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F340DE112501081700D5D3EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F340DE142501081700D5D3EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F340DE162501081700D5D3EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,32 @@
 		F340DE072501081500D5D3EA /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				F340DE0E2501081500D5D3EA /* Main.storyboard */,
 				F340DE082501081500D5D3EA /* AppDelegate.swift */,
 				F340DE0A2501081500D5D3EA /* SceneDelegate.swift */,
-				F340DE0C2501081500D5D3EA /* ViewController.swift */,
-				F340DE0E2501081500D5D3EA /* Main.storyboard */,
+				F340DE1E2501097200D5D3EA /* Today */,
+				F340DE1F2501098700D5D3EA /* Forecast */,
 				F340DE112501081700D5D3EA /* Assets.xcassets */,
 				F340DE132501081700D5D3EA /* LaunchScreen.storyboard */,
 				F340DE162501081700D5D3EA /* Info.plist */,
 			);
 			path = WeatherApp;
+			sourceTree = "<group>";
+		};
+		F340DE1E2501097200D5D3EA /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				F340DE0C2501081500D5D3EA /* TodayViewController.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		F340DE1F2501098700D5D3EA /* Forecast */ = {
+			isa = PBXGroup;
+			children = (
+				F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */,
+			);
+			path = Forecast;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +157,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F340DE0D2501081500D5D3EA /* ViewController.swift in Sources */,
+				F340DE0D2501081500D5D3EA /* TodayViewController.swift in Sources */,
+				F340DE1D2501094B00D5D3EA /* ForecastViewController.swift in Sources */,
 				F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */,
 				F340DE0B2501081500D5D3EA /* SceneDelegate.swift in Sources */,
 			);
