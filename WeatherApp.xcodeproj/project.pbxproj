@@ -15,6 +15,8 @@
 		F340DE122501081700D5D3EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F340DE112501081700D5D3EA /* Assets.xcassets */; };
 		F340DE152501081700D5D3EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F340DE132501081700D5D3EA /* LaunchScreen.storyboard */; };
 		F340DE1D2501094B00D5D3EA /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */; };
+		F3F462BB2502722D00A7C0B6 /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */; };
+		F3F462BF25027A7B00A7C0B6 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F462BE25027A7B00A7C0B6 /* APIHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		F340DE142501081700D5D3EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F340DE162501081700D5D3EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
+		F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
+		F3F462BE25027A7B00A7C0B6 /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +70,8 @@
 				F340DE1E2501097200D5D3EA /* Today */,
 				F340DE1F2501098700D5D3EA /* Forecast */,
 				F340DE112501081700D5D3EA /* Assets.xcassets */,
-				F340A431250213D100918BDE /* UIStackView.swift */,
+				F3F462BD25027A5500A7C0B6 /* NetworkService */,
+				F3F462BC25027A1F00A7C0B6 /* CommonFiles */,
 				F340DE132501081700D5D3EA /* LaunchScreen.storyboard */,
 				F340DE162501081700D5D3EA /* Info.plist */,
 			);
@@ -77,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				F340DE0C2501081500D5D3EA /* TodayViewController.swift */,
+				F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -87,6 +93,22 @@
 				F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */,
 			);
 			path = Forecast;
+			sourceTree = "<group>";
+		};
+		F3F462BC25027A1F00A7C0B6 /* CommonFiles */ = {
+			isa = PBXGroup;
+			children = (
+				F340A431250213D100918BDE /* UIStackView.swift */,
+			);
+			path = CommonFiles;
+			sourceTree = "<group>";
+		};
+		F3F462BD25027A5500A7C0B6 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				F3F462BE25027A7B00A7C0B6 /* APIHandler.swift */,
+			);
+			path = NetworkService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +187,8 @@
 				F340A432250213D100918BDE /* UIStackView.swift in Sources */,
 				F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */,
 				F340DE0B2501081500D5D3EA /* SceneDelegate.swift in Sources */,
+				F3F462BB2502722D00A7C0B6 /* LocationManagerDelegate.swift in Sources */,
+				F3F462BF25027A7B00A7C0B6 /* APIHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

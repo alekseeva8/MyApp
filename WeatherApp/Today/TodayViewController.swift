@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import CoreLocation
 
 class TodayViewController: UIViewController {
+    
+    var locationManager = CLLocationManager()
     
     private enum Category: String {
         case humidity = "Humidity" 
@@ -72,8 +75,12 @@ class TodayViewController: UIViewController {
     private let bottomStackHeight = 40
     private let shareButtonHeight = 20
     
+    private var locationManagerDelegate: LocationManagerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureLocationManager()
         
         view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -135,6 +142,16 @@ class TodayViewController: UIViewController {
         shareButton.translatesAutoresizingMaskIntoConstraints = false
         shareButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
         shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    
+    //MARK: - configureLocationManager()
+    private func configureLocationManager() {
+        locationManagerDelegate = LocationManagerDelegate()
+        locationManager.delegate = locationManagerDelegate
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest //kCLLocationAccuracyThreeKilometers
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     //MARK: - createSubstackView()
