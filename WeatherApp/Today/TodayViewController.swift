@@ -74,7 +74,7 @@ class TodayViewController: UIViewController {
     }()
     
     private let headerViewHeight = 60
-    private let topStackViewHeight = 90
+    private let topStackViewHeight = 160
     private let topStackHeight = 40
     private let bottomStackHeight = 40
     private let shareButtonHeight = 20
@@ -109,6 +109,8 @@ class TodayViewController: UIViewController {
         topStackView.addArrangedSubview(locationLabel)
         topStackView.addArrangedSubview(weatherLabel)
         imageView.image = UIImage(named: "sun")
+        imageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         locationLabel.text = "London, UK"
         weatherLabel.text = "22°C | Sunny"
         topStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -150,7 +152,6 @@ class TodayViewController: UIViewController {
         shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
-    
     //MARK: - configureLocationManager()
     private func configureLocationManager() {
         locationManagerDelegate = LocationManagerDelegate()
@@ -169,12 +170,16 @@ class TodayViewController: UIViewController {
             self.locationLabel.text = "\(city), \(country)"
             
             var weatherDescription = ""
+            var weatherID = 0
             let weatherArray = currentWeather.weather
             weatherArray.forEach { (weather) in
                 weatherDescription = weather.main
+                weatherID = weather.id
             }
+            WeatherConditionHandler.setImage(for: self.imageView, with: weatherID)
+            
             let temperature = Int(currentWeather.main.temp)
-            self.weatherLabel.text = "\(temperature)°C |\(weatherDescription)"
+            self.weatherLabel.text = "\(temperature)°C | \(weatherDescription)"
             
             let humidity = currentWeather.main.humidity
             self.humidityLabel.text = "\(humidity)%"
@@ -229,8 +234,10 @@ class TodayViewController: UIViewController {
     }
     
     private func createImageView(title: Category)  -> UIImageView {
-        let image = UIImage(named: title.rawValue) ?? UIImage(named: "sunSmall2")
+        let image = UIImage(named: title.rawValue) ?? UIImage()
         let imageView = UIImageView(image: image)
+        imageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return imageView
     }
 }
