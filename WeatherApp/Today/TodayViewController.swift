@@ -13,11 +13,17 @@ class TodayViewController: UIViewController {
     
     private enum Category: String {
         case humidity = "Humidity" 
-        case rainfall = "Rainfall"
-        case airPressure = "Temperature"
+        case airPressure = "Pressure"
         case wind = "Wind" 
-        case direction = "Direction"
+        case minTemperature = "MinTemp"
+        case maxTemperature = "MaxTemp"
     }
+    
+    private var humidityLabel = UILabel()
+    private var airPressureLabel = UILabel()
+    private var windLabel = UILabel()
+    private var minTempLabel = UILabel()
+    private var maxTempLabel = UILabel()
     
     private let headerLabel: UILabel = {
         let label = UILabel()
@@ -114,19 +120,19 @@ class TodayViewController: UIViewController {
         
         view.addSubview(topStack)
         let humidityStack = createSubstackView(category: .humidity)
-        let rainfallStack = createSubstackView(category: .rainfall)
-        let temperatureStack = createSubstackView(category: .airPressure)
+        let windStack = createSubstackView(category: .wind)
+        let pressureStack = createSubstackView(category: .airPressure)
         topStack.insertArrangedSubview(humidityStack, at: 0)
-        topStack.addArrangedSubview(rainfallStack)
-        topStack.addArrangedSubview(temperatureStack)
+        topStack.addArrangedSubview(windStack)
+        topStack.addArrangedSubview(pressureStack)
         topStack.alignment = .fill
         topStack.spacing = 100
         
         view.addSubview(bottomStack)
-        let windStack = createSubstackView(category: .wind)
-        let directionStack = createSubstackView(category: .direction)
-        bottomStack.insertArrangedSubview(windStack, at: 0)
-        bottomStack.addArrangedSubview(directionStack)
+        let minTempStack = createSubstackView(category: .minTemperature)
+        let maxTempStack = createSubstackView(category: .maxTemperature)
+        bottomStack.insertArrangedSubview(minTempStack, at: 0)
+        bottomStack.addArrangedSubview(maxTempStack)
         bottomStack.alignment = .fill
         bottomStack.spacing = 100
         
@@ -149,15 +155,38 @@ class TodayViewController: UIViewController {
     private func configureLocationManager() {
         locationManagerDelegate = LocationManagerDelegate()
         locationManager.delegate = locationManagerDelegate
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest //kCLLocationAccuracyThreeKilometers
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         locationManagerDelegate?.viewController = self
     }
     
     func getCurrentWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        DataHandler.getData(latitude: latitude, longitude: longitude) { (currentWeather) in
-            print(currentWeather.name)
+        DataHandler.getData(latitude: latitude, longitude: longitude) { [weak self] (currentWeather) in
+            guard let self = self else {return}
+            let city = currentWeather.name
+            let country = currentWeather.sys.country
+            self.locationLabel.text = "\(city), \(country)"
+            
+            var weatherDescription = ""
+            let weatherArray = currentWeather.weather
+            weatherArray.forEach { (weather) in
+                weatherDescription = weather.main
+            }
+            let temperature = Int(currentWeather.main.temp)
+            self.weatherLabel.text = "\(temperature)°C |\(weatherDescription)"
+            
+            let humidity = currentWeather.main.humidity
+            self.humidityLabel.text = "\(humidity)%"
+            let pressure = currentWeather.main.pressure
+            self.airPressureLabel.text = "\(pressure)hPa"
+            let windSpeed = currentWeather.wind.speed
+            self.windLabel.text = "\(windSpeed)km/h"
+            
+            let minTemperature = Int(currentWeather.main.tempMin)
+            self.minTempLabel.text = "\(minTemperature)°C"
+            let maxTemperature = Int(currentWeather.main.tempMax)
+            self.maxTempLabel.text = "\(maxTemperature)°C"
         }
     }
     
@@ -176,20 +205,24 @@ class TodayViewController: UIViewController {
     
     private func createLabel(title: Category)  -> UILabel {
         let label = UILabel()
-        label.numberOfLines = 2
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 15)
         switch title {
         case .humidity:
-            label.text = "0%"
-        case .rainfall:
-            label.text = "0.0"
+            humidityLabel = label
+            humidityLabel.text = "0%"
         case .airPressure:
-            label.text = "0hPa"
+            airPressureLabel = label
+            airPressureLabel.text = "0hPa"
         case .wind:
-            label.text = "20\nkm/h"
-        case .direction:
-            label.text = "SE\n"
+            windLabel = label
+            windLabel.text = "0km/h"
+        case .minTemperature:
+            minTempLabel = label
+            minTempLabel.text = "0°C"
+        case .maxTemperature:
+            maxTempLabel = label
+            maxTempLabel.text = "°0C"
         }
         label.textColor = .black
         return label
