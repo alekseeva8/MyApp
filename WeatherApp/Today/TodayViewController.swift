@@ -11,8 +11,6 @@ import CoreLocation
 
 class TodayViewController: UIViewController {
     
-    var locationManager = CLLocationManager()
-    
     private enum Category: String {
         case humidity = "Humidity" 
         case rainfall = "Rainfall"
@@ -76,6 +74,8 @@ class TodayViewController: UIViewController {
     private let shareButtonHeight = 20
     
     private var locationManagerDelegate: LocationManagerDelegate?
+    private var locationManager = CLLocationManager()
+    private var currentWeather: CurrentWeather?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,6 +152,13 @@ class TodayViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest //kCLLocationAccuracyThreeKilometers
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        locationManagerDelegate?.viewController = self
+    }
+    
+    func getCurrentWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        DataHandler.getData(latitude: latitude, longitude: longitude) { (currentWeather) in
+            print(currentWeather.name)
+        }
     }
     
     //MARK: - createSubstackView()

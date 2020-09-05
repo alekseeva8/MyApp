@@ -11,7 +11,8 @@ import CoreLocation
 
 class LocationManagerDelegate: UIViewController, CLLocationManagerDelegate {
     
-    let locationManager = CLLocationManager()
+    private let locationManager = CLLocationManager()
+    weak var viewController: UIViewController?
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -19,8 +20,9 @@ class LocationManagerDelegate: UIViewController, CLLocationManagerDelegate {
         guard let location = locations.last else { return } 
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
-        APIHandler.request(latitude: latitude, longitude: longitude) { (data, error) in
+        
+        if let todayViewController = viewController as? TodayViewController {
+            todayViewController.getCurrentWeather(latitude: latitude, longitude: longitude)
         }
     }
-    
 }

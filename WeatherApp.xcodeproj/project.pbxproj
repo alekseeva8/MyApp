@@ -17,6 +17,8 @@
 		F340DE1D2501094B00D5D3EA /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */; };
 		F3F462BB2502722D00A7C0B6 /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */; };
 		F3F462BF25027A7B00A7C0B6 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F462BE25027A7B00A7C0B6 /* APIHandler.swift */; };
+		F3F462C12502C5EE00A7C0B6 /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F462C02502C5EE00A7C0B6 /* DataHandler.swift */; };
+		F3F462C32502CF2A00A7C0B6 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F462C22502CF2A00A7C0B6 /* CurrentWeather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
 		F3F462BE25027A7B00A7C0B6 /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
+		F3F462C02502C5EE00A7C0B6 /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
+		F3F462C22502CF2A00A7C0B6 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,7 @@
 				F340DE0E2501081500D5D3EA /* Main.storyboard */,
 				F340DE082501081500D5D3EA /* AppDelegate.swift */,
 				F340DE0A2501081500D5D3EA /* SceneDelegate.swift */,
+				F3F462C42502CF3600A7C0B6 /* Model */,
 				F340DE1E2501097200D5D3EA /* Today */,
 				F340DE1F2501098700D5D3EA /* Forecast */,
 				F340DE112501081700D5D3EA /* Assets.xcassets */,
@@ -107,8 +112,17 @@
 			isa = PBXGroup;
 			children = (
 				F3F462BE25027A7B00A7C0B6 /* APIHandler.swift */,
+				F3F462C02502C5EE00A7C0B6 /* DataHandler.swift */,
 			);
 			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		F3F462C42502CF3600A7C0B6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F3F462C22502CF2A00A7C0B6 /* CurrentWeather.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,10 +196,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3F462C32502CF2A00A7C0B6 /* CurrentWeather.swift in Sources */,
 				F340DE0D2501081500D5D3EA /* TodayViewController.swift in Sources */,
 				F340DE1D2501094B00D5D3EA /* ForecastViewController.swift in Sources */,
 				F340A432250213D100918BDE /* UIStackView.swift in Sources */,
 				F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */,
+				F3F462C12502C5EE00A7C0B6 /* DataHandler.swift in Sources */,
 				F340DE0B2501081500D5D3EA /* SceneDelegate.swift in Sources */,
 				F3F462BB2502722D00A7C0B6 /* LocationManagerDelegate.swift in Sources */,
 				F3F462BF25027A7B00A7C0B6 /* APIHandler.swift in Sources */,
