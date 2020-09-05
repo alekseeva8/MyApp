@@ -162,8 +162,9 @@ class TodayViewController: UIViewController {
         locationManagerDelegate?.viewController = self
     }
     
-    func getCurrentWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        DataHandler.getData(latitude: latitude, longitude: longitude) { [weak self] (currentWeather) in
+    func getWeather(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        
+        DataHandler.getData(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (currentWeather) in
             guard let self = self else {return}
             let city = currentWeather.name
             let country = currentWeather.sys.country

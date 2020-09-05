@@ -11,9 +11,9 @@ import CoreLocation
 
 struct DataHandler {
     
-    static func getData(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (CurrentWeather) -> Void) {
+    static func getData(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (CurrentWeather) -> Void) {
         
-        APIHandler.request(latitude: latitude, longitude: longitude) { (data, error) in
+        APIHandler.request(on: requestCategory, latitude: latitude, longitude: longitude) { (data, error) in
             guard let data = data else {return}
             guard error == nil else {return}
             

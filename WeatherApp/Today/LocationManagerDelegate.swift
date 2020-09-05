@@ -22,7 +22,7 @@ class LocationManagerDelegate: UIViewController, CLLocationManagerDelegate {
         let longitude = location.coordinate.longitude
         
         if let todayViewController = viewController as? TodayViewController {
-            todayViewController.getCurrentWeather(latitude: latitude, longitude: longitude)
+            todayViewController.getWeather(on: .currentWeather, latitude: latitude, longitude: longitude)
         }
     }
 }
