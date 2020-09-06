@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F302A62D2504F9AA00211BC7 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302A62C2504F9AA00211BC7 /* ForecastTableViewCell.swift */; };
 		F340A432250213D100918BDE /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340A431250213D100918BDE /* UIStackView.swift */; };
 		F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE082501081500D5D3EA /* AppDelegate.swift */; };
 		F340DE0B2501081500D5D3EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE0A2501081500D5D3EA /* SceneDelegate.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F302A62C2504F9AA00211BC7 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
 		F340A431250213D100918BDE /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		F340DE052501081500D5D3EA /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F340DE082501081500D5D3EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F302A62E2504FB6800211BC7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F340DE0C2501081500D5D3EA /* TodayViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F302A62F2504FBC900211BC7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F302A6302504FBD500211BC7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F302A62C2504F9AA00211BC7 /* ForecastTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F302A6312504FBE500211BC7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		F340DDFC2501081500D5D3EA = {
 			isa = PBXGroup;
 			children = (
@@ -84,7 +117,6 @@
 				F340DE0E2501081500D5D3EA /* Main.storyboard */,
 				F340DE082501081500D5D3EA /* AppDelegate.swift */,
 				F340DE0A2501081500D5D3EA /* SceneDelegate.swift */,
-				F3F462C42502CF3600A7C0B6 /* Model */,
 				F340DE1E2501097200D5D3EA /* Today */,
 				F340DE1F2501098700D5D3EA /* Forecast */,
 				F3F462C92503ECB100A7C0B6 /* Handlers */,
@@ -99,7 +131,8 @@
 		F340DE1E2501097200D5D3EA /* Today */ = {
 			isa = PBXGroup;
 			children = (
-				F340DE0C2501081500D5D3EA /* TodayViewController.swift */,
+				F3F462C42502CF3600A7C0B6 /* Model */,
+				F302A62E2504FB6800211BC7 /* Controller */,
 				F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */,
 			);
 			path = Today;
@@ -108,7 +141,9 @@
 		F340DE1F2501098700D5D3EA /* Forecast */ = {
 			isa = PBXGroup;
 			children = (
-				F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */,
+				F302A6312504FBE500211BC7 /* Model */,
+				F302A62F2504FBC900211BC7 /* Controller */,
+				F302A6302504FBD500211BC7 /* View */,
 			);
 			path = Forecast;
 			sourceTree = "<group>";
@@ -222,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F302A62D2504F9AA00211BC7 /* ForecastTableViewCell.swift in Sources */,
 				F3F462C32502CF2A00A7C0B6 /* CurrentWeather.swift in Sources */,
 				F340DE0D2501081500D5D3EA /* TodayViewController.swift in Sources */,
 				F3F462CB2504234700A7C0B6 /* RequestCategory.swift in Sources */,
