@@ -19,12 +19,6 @@ class TodayViewController: UIViewController {
         case maxTemperature = "MaxTemp"
     }
     
-    private var humidityLabel = UILabel()
-    private var airPressureLabel = UILabel()
-    private var windLabel = UILabel()
-    private var minTempLabel = UILabel()
-    private var maxTempLabel = UILabel()
-    
     private let headerLabel: UILabel = {
         let label = UILabel()
         label.text = "Today" 
@@ -64,6 +58,12 @@ class TodayViewController: UIViewController {
     private let topStack = UIStackView().emptyStackView
     private let bottomStack = UIStackView().emptyStackView
     
+    private var humidityLabel = UILabel()
+    private var airPressureLabel = UILabel()
+    private var windLabel = UILabel()
+    private var minTempLabel = UILabel()
+    private var maxTempLabel = UILabel()
+    
     private let shareButton: UIButton = {
         let buttonFrame = CGRect(x: 0, y: 0, width: 128, height: 42)
         let button = UIButton(frame: buttonFrame)
@@ -83,6 +83,9 @@ class TodayViewController: UIViewController {
     private var locationManager = CLLocationManager()
     private var currentWeather: CurrentWeather?
     
+    private var textToShare: [String] = []
+    
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -150,6 +153,14 @@ class TodayViewController: UIViewController {
         shareButton.translatesAutoresizingMaskIntoConstraints = false
         shareButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
         shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+    }
+    
+    
+    //MARK: - shareButtonTapped()
+    @objc func shareButtonTapped() {
+        let activityVC = ActivityVC(presentor: self)
+        activityVC.share(text: textToShare)
     }
     
     //MARK: - configureLocationManager()
@@ -161,7 +172,9 @@ class TodayViewController: UIViewController {
         locationManager.startUpdatingLocation()
         locationManagerDelegate?.viewController = self
     }
+
     
+    //MARK: - getWeather()    
     func getWeather(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
         
         DataHandler.getData(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (currentWeather) in
@@ -193,6 +206,9 @@ class TodayViewController: UIViewController {
             self.minTempLabel.text = "\(minTemperature)°C"
             let maxTemperature = Int(currentWeather.main.tempMax)
             self.maxTempLabel.text = "\(maxTemperature)°C"
+            
+            let text = "City: \(city), country: \(country). \(weatherDescription), \(temperature)°C. Humidity: \(humidity)%. Air pressure: \(pressure)hPa. Wind speed: \(windSpeed)\nm/sec"
+            self.textToShare = [text]
         }
     }
     
