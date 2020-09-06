@@ -25,4 +25,23 @@ class LocationManagerDelegate: UIViewController, CLLocationManagerDelegate {
             todayViewController.getWeather(on: .currentWeather, latitude: latitude, longitude: longitude)
         }
     }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    
+        switch status {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .denied, .restricted:
+            guard let viewController = viewController else {return}
+            Alert.locationServiceIsDisabled(viewController)
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        @unknown default:
+            break
+        }
+    }    
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to get location", error)
+    }
 }

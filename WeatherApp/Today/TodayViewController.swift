@@ -187,7 +187,7 @@ class TodayViewController: UIViewController {
             let pressure = currentWeather.main.pressure
             self.airPressureLabel.text = "\(pressure)hPa"
             let windSpeed = currentWeather.wind.speed
-            self.windLabel.text = "\(windSpeed)km/h"
+            self.windLabel.text = "\(windSpeed)\nm/sec"
             
             let minTemperature = Int(currentWeather.main.tempMin)
             self.minTempLabel.text = "\(minTemperature)°C"
@@ -212,6 +212,7 @@ class TodayViewController: UIViewController {
     private func createLabel(title: Category)  -> UILabel {
         let label = UILabel()
         label.textAlignment = .center
+        label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 15)
         switch title {
         case .humidity:
@@ -222,7 +223,7 @@ class TodayViewController: UIViewController {
             airPressureLabel.text = "0hPa"
         case .wind:
             windLabel = label
-            windLabel.text = "0km/h"
+            windLabel.text = "0\nm/sec"
         case .minTemperature:
             minTempLabel = label
             minTempLabel.text = "0°C"
