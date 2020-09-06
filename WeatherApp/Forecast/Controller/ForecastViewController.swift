@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ForecastViewController: UIViewController {
     
@@ -34,6 +35,9 @@ class ForecastViewController: UIViewController {
         tableView.rowHeight = 80
         return tableView
     }()
+    
+    private var locationManagerDelegate: LocationManagerDelegate?
+    private var locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,9 +68,26 @@ class ForecastViewController: UIViewController {
         tableView.dataSource = self
         
         tableView.register(ForecastTableViewCell.self, forCellReuseIdentifier: ForecastTableViewCell.reuseID)
+        
+        configureLocationManager()
+    }
+    
+    //MARK: - configureLocationManager()
+    private func configureLocationManager() {
+        locationManagerDelegate = LocationManagerDelegate()
+        locationManager.delegate = locationManagerDelegate
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        locationManagerDelegate?.viewController = self
+    }
+    
+    func getForecast(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        DataHandler.getInfo(on: requestCategory, latitude: latitude, longitude: longitude) { (forecastWeather) in
+            print(forecastWeather.city)
+        }
     }
 }
-
 
 //MARK: - UITableViewDataSource
 extension ForecastViewController: UITableViewDataSource {
@@ -88,3 +109,4 @@ extension ForecastViewController: UITableViewDataSource {
         return cell
     }
 }
+

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F302A62D2504F9AA00211BC7 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302A62C2504F9AA00211BC7 /* ForecastTableViewCell.swift */; };
+		F326F6B4250519A600066F1F /* ForecastWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326F6B3250519A600066F1F /* ForecastWeather.swift */; };
 		F340A432250213D100918BDE /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340A431250213D100918BDE /* UIStackView.swift */; };
 		F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE082501081500D5D3EA /* AppDelegate.swift */; };
 		F340DE0B2501081500D5D3EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE0A2501081500D5D3EA /* SceneDelegate.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		F302A62C2504F9AA00211BC7 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
+		F326F6B3250519A600066F1F /* ForecastWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeather.swift; sourceTree = "<group>"; };
 		F340A431250213D100918BDE /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		F340DE052501081500D5D3EA /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F340DE082501081500D5D3EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		F302A6312504FBE500211BC7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F326F6B3250519A600066F1F /* ForecastWeather.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			files = (
 				F302A62D2504F9AA00211BC7 /* ForecastTableViewCell.swift in Sources */,
 				F3F462C32502CF2A00A7C0B6 /* CurrentWeather.swift in Sources */,
+				F326F6B4250519A600066F1F /* ForecastWeather.swift in Sources */,
 				F340DE0D2501081500D5D3EA /* TodayViewController.swift in Sources */,
 				F3F462CB2504234700A7C0B6 /* RequestCategory.swift in Sources */,
 				F340DE1D2501094B00D5D3EA /* ForecastViewController.swift in Sources */,

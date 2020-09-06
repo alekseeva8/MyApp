@@ -24,6 +24,9 @@ class LocationManagerDelegate: UIViewController, CLLocationManagerDelegate {
         if let todayViewController = viewController as? TodayViewController {
             todayViewController.getWeather(on: .currentWeather, latitude: latitude, longitude: longitude)
         }
+        if let forecastViewController = viewController as? ForecastViewController {
+            forecastViewController.getForecast(on: .forecast, latitude: latitude, longitude: longitude)
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
