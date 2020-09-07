@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class LocationManagerDelegate: UIViewController, CLLocationManagerDelegate {
+class LocationManagerDelegate: NSObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
     weak var viewController: UIViewController?

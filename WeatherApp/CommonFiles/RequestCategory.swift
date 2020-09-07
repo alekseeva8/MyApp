@@ -9,6 +9,7 @@
 import Foundation
 
 enum RequestCategory: String {
+    
     case currentWeather = "weather"
     case forecast = "forecast"
 }

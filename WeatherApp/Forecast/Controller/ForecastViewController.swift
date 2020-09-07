@@ -13,7 +13,7 @@ class ForecastViewController: UIViewController {
     
     private let headerLabel: UILabel = {
         let label = UILabel()
-        label.text = "London" 
+        label.text = "" 
         label.font = UIFont.systemFont(ofSize: 20)
         label.textColor = .black
         return label
@@ -38,7 +38,10 @@ class ForecastViewController: UIViewController {
     
     private var locationManagerDelegate: LocationManagerDelegate?
     private var locationManager = CLLocationManager()
-
+    
+    private var lists: [List] = []
+    private var days: [[List]] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,29 +86,66 @@ class ForecastViewController: UIViewController {
     }
     
     func getForecast(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        DataHandler.getInfo(on: requestCategory, latitude: latitude, longitude: longitude) { (forecastWeather) in
-            print(forecastWeather.city)
+        DataHandler.getInfo(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (forecastWeather) in
+            
+            guard let self = self else {return}
+            let city = forecastWeather.city.name
+            self.headerLabel.text = city
+            
+            self.lists = forecastWeather.list
+            self.days = DaysHandler.groupDays(forecastWeather.list)
+            
+            self.tableView.reloadData()
         }
     }
 }
+
 
 //MARK: - UITableViewDataSource
 extension ForecastViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        5
+        days.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var date = ""
+        if let day = days[section].first {
+            let time = day.time
+            let timeSplitted = time.split(separator: " ")
+            date = String(timeSplitted.first ?? "")
+        }
+        return date
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        8
+        days[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ForecastTableViewCell.reuseID, for: indexPath) as? ForecastTableViewCell ?? UITableViewCell()
-        cell.imageView?.image = UIImage(named: "sun")
-        cell.textLabel?.text = "9:00"
-        cell.detailTextLabel?.text = "22"
-        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 20)
+        
+        let day = days[indexPath.section][indexPath.row]
+        
+        let dayTemperature = Int(day.main.temp)
+        
+        let time = day.time         //"2020-09-06 21:00:00"
+        let timeSplitted = time.split(separator: " ")
+        let hour = String(timeSplitted.last ?? "")
+        
+        let dayWeather = day.weather
+        var dayWeatherID = 0
+        dayWeather.forEach { (one) in
+            dayWeatherID = one.id
+        }
+        if let imageView = cell.imageView {
+            WeatherConditionHandler.setImage(for: imageView, with: dayWeatherID)
+        }
+        
+        cell.textLabel?.text = "\(hour)"
+        cell.detailTextLabel?.text = "\(dayTemperature)°"
+        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 30)
+        cell.detailTextLabel?.textColor = .systemBlue
         return cell
     }
 }

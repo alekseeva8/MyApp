@@ -13,38 +13,18 @@ struct DataHandler {
     
     static func getData(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (CurrentWeather) -> Void) {
         
-        switch  requestCategory {
+        APIHandler.request(on: requestCategory, latitude: latitude, longitude: longitude) { (data, error) in
+            guard let data = data else {return}
+            guard error == nil else {return}
             
-        case .currentWeather:
-            APIHandler.request(on: requestCategory, latitude: latitude, longitude: longitude) { (data, error) in
-                guard let data = data else {return}
-                guard error == nil else {return}
-                
-                do {
-                    let weatherData = try JSONDecoder().decode(CurrentWeather.self, from: data)
-                    DispatchQueue.main.async {
-                        completion(weatherData)
-                    }
-                } catch let jsonError {
-                    print("Failed to decode JSON ", jsonError)
+            do {
+                let weatherData = try JSONDecoder().decode(CurrentWeather.self, from: data)
+                DispatchQueue.main.async {
+                    completion(weatherData)
                 }
+            } catch let jsonError {
+                print("Failed to decode JSON ", jsonError)
             }
-        
-        case .forecast:
-            break
-//            APIHandler.request(on: requestCategory, latitude: latitude, longitude: longitude) { (data, error) in
-//                guard let data = data else {return}
-//                guard error == nil else {return}
-//                
-//                do {
-//                    let weatherData = try JSONDecoder().decode(ForecastWeather.self, from: data)
-//                    DispatchQueue.main.async {
-//                        completion(weatherData)
-//                    }
-//                } catch let jsonError {
-//                    print("Failed to decode JSON ", jsonError)
-//                }
-//            }
         }
     }
     
