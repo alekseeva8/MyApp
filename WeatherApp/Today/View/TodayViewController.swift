@@ -11,6 +11,19 @@ import CoreLocation
 
 class TodayViewController: UIViewController {
     
+    var currentViewModel: CurrentViewModel! {
+        didSet {
+            locationLabel.text = currentViewModel.locationLabelText
+            WeatherConditionHandler.setImage(for: self.imageView, with: currentViewModel.weatherID)
+            weatherLabel.text = currentViewModel.weatherLabelText
+            humidityLabel.text = currentViewModel.humidityLabelText
+            airPressureLabel.text = currentViewModel.pressureLabelText
+            windLabel.text = currentViewModel.windLabelText
+            minTempLabel.text = currentViewModel.minTempLabelText
+            maxTempLabel.text = currentViewModel.maxTempLabelText
+            }
+        }
+    
     private enum Category: String {
         case humidity = "Humidity" 
         case airPressure = "Pressure"
@@ -36,19 +49,21 @@ class TodayViewController: UIViewController {
     }()
     
     private var imageView: UIImageView = {
-        let image = UIImage()
-        let view = UIImageView(image: image)  
+        let image = UIImage(named: "sun")
+        let view = UIImageView(image: image) 
         return view
     }()
     
     private let locationLabel: UILabel = {
         let label = UILabel()
+        label.text = "London, UK"
         label.textColor = .black
         return label
     }()
     
     private let weatherLabel: UILabel = {
         let label = UILabel()
+        label.text = "22°C | Sunny"
         label.textColor = .systemBlue
         label.font = UIFont.systemFont(ofSize: 25)
         return label
@@ -83,6 +98,7 @@ class TodayViewController: UIViewController {
     private var locationManager = CLLocationManager()
     
     private var textToShare: [String] = []
+
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -110,11 +126,8 @@ class TodayViewController: UIViewController {
         topStackView.insertArrangedSubview(imageView, at: 0)
         topStackView.addArrangedSubview(locationLabel)
         topStackView.addArrangedSubview(weatherLabel)
-        imageView.image = UIImage(named: "sun")
         imageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        locationLabel.text = "London, UK"
-        weatherLabel.text = "22°C | Sunny"
         topStackView.translatesAutoresizingMaskIntoConstraints = false
         topStackView.axis = .vertical
         topStackView.alignment = .center
@@ -178,37 +191,28 @@ class TodayViewController: UIViewController {
         
         DataHandler.getData(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (currentWeather) in
             guard let self = self else {return}
-            let city = currentWeather.name
-            let country = currentWeather.sys.country
-            self.locationLabel.text = "\(city), \(country)"
-            
-            var weatherDescription = ""
-            var weatherID = 0
-            let weatherArray = currentWeather.weather
-            weatherArray.forEach { (weather) in
-                weatherDescription = weather.main
-                weatherID = weather.id
-            }
-            WeatherConditionHandler.setImage(for: self.imageView, with: weatherID)
-            
-            let temperature = Int(currentWeather.main.temp)
-            self.weatherLabel.text = "\(temperature)°C | \(weatherDescription)"
-            
-            let humidity = currentWeather.main.humidity
-            self.humidityLabel.text = "\(humidity)%"
-            let pressure = currentWeather.main.pressure
-            self.airPressureLabel.text = "\(pressure)hPa"
-            let windSpeed = currentWeather.wind.speed
-            self.windLabel.text = "\(windSpeed)\nm/sec"
-            
-            let minTemperature = Int(currentWeather.main.tempMin)
-            self.minTempLabel.text = "\(minTemperature)°C"
-            let maxTemperature = Int(currentWeather.main.tempMax)
-            self.maxTempLabel.text = "\(maxTemperature)°C"
-            
-            let text = "City: \(city), country: \(country). \(weatherDescription), \(temperature)°C. Humidity: \(humidity)%. Air pressure: \(pressure)hPa. Wind speed: \(windSpeed)\nm/sec"
-            self.textToShare = [text]
+            self.currentViewModel = CurrentViewModel(currentWeather: currentWeather)
+
+            self.textToShare = self.composeText(with: currentWeather)
         }
+    }
+
+    //MARK: - composeText()    
+    private func composeText(with data: CurrentWeather) -> [String] {
+        let city = data.name
+        let country = data.sys.country
+        var weatherDescription = ""
+        let weatherArray = data.weather
+        weatherArray.forEach { (weather) in
+            weatherDescription = weather.main
+        }
+        let temperature = Int(data.main.temp)
+        let humidity = data.main.humidity
+        let pressure = data.main.pressure
+        let windSpeed = data.wind.speed
+        
+        let text = "City: \(city), country: \(country). \(weatherDescription), \(temperature)°C. Humidity: \(humidity)%. Air pressure: \(pressure)hPa. Wind speed: \(windSpeed)\nm/sec"
+        return [text]
     }
     
     //MARK: - createSubstackView()

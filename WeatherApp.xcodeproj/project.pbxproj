@@ -19,6 +19,7 @@
 		F340DE1D2501094B00D5D3EA /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */; };
 		F350F4D52506582B00899356 /* DaysHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4D42506582B00899356 /* DaysHandler.swift */; };
 		F350F4D72506957F00899356 /* ForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4D62506957F00899356 /* ForecastViewModel.swift */; };
+		F350F4DC2506BE1400899356 /* CurrentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4DB2506BE1400899356 /* CurrentViewModel.swift */; };
 		F399C111250434BA00A7B321 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F399C110250434BA00A7B321 /* Constants.swift */; };
 		F399C1132504B20D00A7B321 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F399C1122504B20D00A7B321 /* Alert.swift */; };
 		F3DFEB722504D520002DBDD5 /* ActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DFEB712504D520002DBDD5 /* ActivityVC.swift */; };
@@ -46,6 +47,7 @@
 		F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		F350F4D42506582B00899356 /* DaysHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysHandler.swift; sourceTree = "<group>"; };
 		F350F4D62506957F00899356 /* ForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModel.swift; sourceTree = "<group>"; };
+		F350F4DB2506BE1400899356 /* CurrentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentViewModel.swift; sourceTree = "<group>"; };
 		F399C110250434BA00A7B321 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F399C1122504B20D00A7B321 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		F3DFEB712504D520002DBDD5 /* ActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityVC.swift; sourceTree = "<group>"; };
@@ -69,12 +71,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F302A62E2504FB6800211BC7 /* Controller */ = {
+		F302A62E2504FB6800211BC7 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				F340DE0C2501081500D5D3EA /* TodayViewController.swift */,
 			);
-			path = Controller;
+			path = View;
 			sourceTree = "<group>";
 		};
 		F302A6302504FBD500211BC7 /* View */ = {
@@ -132,8 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				F3F462C42502CF3600A7C0B6 /* Model */,
-				F302A62E2504FB6800211BC7 /* Controller */,
-				F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */,
+				F350F4DD2506BE1E00899356 /* ViewModel */,
+				F302A62E2504FB6800211BC7 /* View */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -152,6 +154,14 @@
 			isa = PBXGroup;
 			children = (
 				F350F4D62506957F00899356 /* ForecastViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F350F4DD2506BE1E00899356 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F350F4DB2506BE1400899356 /* CurrentViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -191,6 +201,7 @@
 			children = (
 				F3F462C72503EC9700A7C0B6 /* WeatherConditionHandler.swift */,
 				F350F4D42506582B00899356 /* DaysHandler.swift */,
+				F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */,
 			);
 			path = Handlers;
 			sourceTree = "<group>";
@@ -278,6 +289,7 @@
 				F3DFEB722504D520002DBDD5 /* ActivityVC.swift in Sources */,
 				F399C1132504B20D00A7B321 /* Alert.swift in Sources */,
 				F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */,
+				F350F4DC2506BE1400899356 /* CurrentViewModel.swift in Sources */,
 				F399C111250434BA00A7B321 /* Constants.swift in Sources */,
 				F3F462C12502C5EE00A7C0B6 /* DataHandler.swift in Sources */,
 				F340DE0B2501081500D5D3EA /* SceneDelegate.swift in Sources */,

@@ -6,7 +6,7 @@
 //  Copyright © 2020 Elena Alekseeva. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct ForecastViewModel {
     

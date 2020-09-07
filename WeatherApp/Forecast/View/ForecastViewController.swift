@@ -59,7 +59,6 @@ class ForecastViewController: UIViewController {
         
         //MARK: - tableView
         view.addSubview(tableView)
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
@@ -69,7 +68,6 @@ class ForecastViewController: UIViewController {
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
         tableView.dataSource = self
-        
         tableView.register(ForecastTableViewCell.self, forCellReuseIdentifier: ForecastTableViewCell.reuseID)
         
         configureLocationManager()
@@ -100,7 +98,6 @@ class ForecastViewController: UIViewController {
         }
     }
 }
-
 
 //MARK: - UITableViewDataSource
 extension ForecastViewController: UITableViewDataSource {
