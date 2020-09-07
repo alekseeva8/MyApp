@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class LocationManagerDelegate: UIViewController, CLLocationManagerDelegate {
+class LocationManagerDelegate: NSObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
     weak var viewController: UIViewController?
@@ -23,6 +23,9 @@ class LocationManagerDelegate: UIViewController, CLLocationManagerDelegate {
         
         if let todayViewController = viewController as? TodayViewController {
             todayViewController.getWeather(on: .currentWeather, latitude: latitude, longitude: longitude)
+        }
+        if let forecastViewController = viewController as? ForecastViewController {
+            forecastViewController.getForecast(on: .forecast, latitude: latitude, longitude: longitude)
         }
     }
     

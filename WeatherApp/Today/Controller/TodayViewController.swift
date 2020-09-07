@@ -81,7 +81,6 @@ class TodayViewController: UIViewController {
     
     private var locationManagerDelegate: LocationManagerDelegate?
     private var locationManager = CLLocationManager()
-    private var currentWeather: CurrentWeather?
     
     private var textToShare: [String] = []
     
