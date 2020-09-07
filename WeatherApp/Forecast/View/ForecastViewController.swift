@@ -39,8 +39,8 @@ class ForecastViewController: UIViewController {
     private var locationManagerDelegate: LocationManagerDelegate?
     private var locationManager = CLLocationManager()
     
-    private var lists: [List] = []
-    private var days: [[List]] = []
+    private var forecastViewModels: [ForecastViewModel] = []
+    private var groupedForecastViewModels: [[ForecastViewModel]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,8 +92,9 @@ class ForecastViewController: UIViewController {
             let city = forecastWeather.city.name
             self.headerLabel.text = city
             
-            self.lists = forecastWeather.list
-            self.days = DaysHandler.groupDays(forecastWeather.list)
+            let lists = forecastWeather.list
+            self.forecastViewModels = lists.map({return ForecastViewModel(list: $0)})
+            self.groupedForecastViewModels = DaysHandler.groupDays(self.forecastViewModels)
             
             self.tableView.reloadData()
         }
@@ -105,13 +106,14 @@ class ForecastViewController: UIViewController {
 extension ForecastViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        days.count
+        groupedForecastViewModels.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var date = ""
-        if let day = days[section].first {
-            let time = day.time
+        
+        if let days = groupedForecastViewModels[section].first {
+            let time = days.list.time
             let timeSplitted = time.split(separator: " ")
             date = String(timeSplitted.first ?? "")
             let dateSplitted = date.split(separator: "-")
@@ -124,14 +126,14 @@ extension ForecastViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        days[section].count
+        groupedForecastViewModels[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ForecastTableViewCell.reuseID, for: indexPath) as! ForecastTableViewCell
         
-        let list = days[indexPath.section][indexPath.row]
-        cell.list = list
+        let forecastViewModel = groupedForecastViewModels[indexPath.section][indexPath.row]
+        cell.forecastViewModel = forecastViewModel
     
         return cell
     }

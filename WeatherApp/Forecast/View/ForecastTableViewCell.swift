@@ -12,27 +12,13 @@ class ForecastTableViewCell: UITableViewCell {
     
     static let reuseID = "ForecastTableViewCell"
     
-    var list : List? {
+    var forecastViewModel: ForecastViewModel! {
         didSet {
-            guard let list = list else {
-                return
-            }
-            let dayTemperature = Int(list.main.temp)
-            
-            let time = list.time         //"2020-09-06 21:00:00"
-            let timeSplitted = time.split(separator: " ")
-            let hour = String(timeSplitted.last ?? "")
-            
-            let dayWeather = list.weather
-            var dayWeatherID = 0
-            dayWeather.forEach { (one) in
-                dayWeatherID = one.id
-            }
+            textLabel?.text = forecastViewModel.textFortextLabel
+            detailTextLabel?.text = forecastViewModel.textForDetailTextLabel
             if let imageView = imageView {
-                WeatherConditionHandler.setImage(for: imageView, with: dayWeatherID)
+                WeatherConditionHandler.setImage(for: imageView, with: forecastViewModel.dayWeatherID)
             }
-            textLabel?.text = "\(hour)"
-            detailTextLabel?.text = "\(dayTemperature)°"
         }
     }
     
