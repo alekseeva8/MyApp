@@ -114,6 +114,11 @@ extension ForecastViewController: UITableViewDataSource {
             let time = day.time
             let timeSplitted = time.split(separator: " ")
             date = String(timeSplitted.first ?? "")
+            let dateSplitted = date.split(separator: "-")
+            let day = dateSplitted[2]
+            let month = dateSplitted[1]
+            let year = dateSplitted[0]
+            date = "\(day).\(month).\(year)"
         }
         return date
     }
@@ -123,29 +128,11 @@ extension ForecastViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ForecastTableViewCell.reuseID, for: indexPath) as? ForecastTableViewCell ?? UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: ForecastTableViewCell.reuseID, for: indexPath) as! ForecastTableViewCell
         
-        let day = days[indexPath.section][indexPath.row]
-        
-        let dayTemperature = Int(day.main.temp)
-        
-        let time = day.time         //"2020-09-06 21:00:00"
-        let timeSplitted = time.split(separator: " ")
-        let hour = String(timeSplitted.last ?? "")
-        
-        let dayWeather = day.weather
-        var dayWeatherID = 0
-        dayWeather.forEach { (one) in
-            dayWeatherID = one.id
-        }
-        if let imageView = cell.imageView {
-            WeatherConditionHandler.setImage(for: imageView, with: dayWeatherID)
-        }
-        
-        cell.textLabel?.text = "\(hour)"
-        cell.detailTextLabel?.text = "\(dayTemperature)°"
-        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 30)
-        cell.detailTextLabel?.textColor = .systemBlue
+        let list = days[indexPath.section][indexPath.row]
+        cell.list = list
+    
         return cell
     }
 }
