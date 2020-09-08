@@ -7,51 +7,45 @@
 //
 
 import Foundation
+import CoreLocation
 
-struct CurrentViewModel {
+protocol CurrentViewModelDelegate: class {
     
+    func useData(_ data: CurrentWeather)
+    func updateData(_ data: CurrentWeather)
+}
+
+class CurrentViewModel {
+    
+    var currentViewModelDelegate: CurrentViewModelDelegate?
     var currentWeather: CurrentWeather
-    var weatherID: Int
-    let locationLabelText: String
-    let weatherLabelText: String
-    let humidityLabelText: String
-    let pressureLabelText: String
-    let windLabelText: String    
-    let minTempLabelText: String
-    let maxTempLabelText: String
     
     init(currentWeather: CurrentWeather) {
         self.currentWeather = currentWeather
-        
-        let city = currentWeather.name
-        let country = currentWeather.sys.country
-        self.locationLabelText = "\(city), \(country)"
-        
-        var weatherDescription = ""
-        var weatherID = 0
-        let weatherArray = currentWeather.weather
-        weatherArray.forEach { (weather) in
-            weatherDescription = weather.main
-            weatherID = weather.id
+    }
+    
+    func getWeatherFromCache() {
+        DataHandler.getWeatherFromCache { [weak self] (currentWeather) in
+            guard let self = self else {return}
+            self.currentViewModelDelegate?.useData(currentWeather)
         }
-        self.weatherID = weatherID
-        
-        let temperature = Int(currentWeather.main.temp)
-        self.weatherLabelText = "\(temperature)°C | \(weatherDescription)"
-        
-        let humidity = currentWeather.main.humidity
-        self.humidityLabelText = "\(humidity)%"
-        
-        let pressure = currentWeather.main.pressure
-        self.pressureLabelText = "\(pressure)hPa"
-        
-        let windSpeed = currentWeather.wind.speed
-        self.windLabelText = "\(windSpeed)\nm/sec"
-        
-        let minTemperature = Int(currentWeather.main.tempMin)
-        self.minTempLabelText = "\(minTemperature)°C"
-        
-        let maxTemperature = Int(currentWeather.main.tempMax)
-        self.maxTempLabelText = "\(maxTemperature)°C"
     }
 }
+
+extension CurrentViewModel: LocationDelegate {
+    
+    func getWeather(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        DataHandler.getData(on: requestCategory, latitude: latitude, longitude: longitude) { (currentWeather, error) in
+
+            switch error {
+            case nil:
+                guard let currentWeather = currentWeather else {return}
+                self.currentViewModelDelegate?.updateData(currentWeather)
+                
+            default:
+                print(String(describing: error?.localizedDescription))
+            }
+        }
+    }
+}
+

@@ -21,7 +21,7 @@ class LocationManagerDelegate: NSObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
     weak var viewController: UIViewController?
-    weak var delegate: LocationDelegate?
+    var delegate: LocationDelegate?
     weak var delegate2: LocationDelegate2?
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -40,8 +40,8 @@ class LocationManagerDelegate: NSObject, CLLocationManagerDelegate {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .denied, .restricted:
-            guard let viewController = viewController else {return}
-            Alert.locationServiceIsDisabled(viewController)
+            guard let delegate = delegate as? UIViewController else {return}
+            Alert.locationServiceIsDisabled(delegate)
         case .authorizedAlways, .authorizedWhenInUse:
             break
         @unknown default:

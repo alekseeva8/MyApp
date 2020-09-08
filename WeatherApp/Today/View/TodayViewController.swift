@@ -13,14 +13,30 @@ class TodayViewController: UIViewController {
     
     var currentViewModel: CurrentViewModel! {
         didSet {
-            locationLabel.text = currentViewModel.locationLabelText
-            WeatherConditionHandler.setImage(for: self.imageView, with: currentViewModel.weatherID)
-            weatherLabel.text = currentViewModel.weatherLabelText
-            humidityLabel.text = currentViewModel.humidityLabelText
-            airPressureLabel.text = currentViewModel.pressureLabelText
-            windLabel.text = currentViewModel.windLabelText
-            minTempLabel.text = currentViewModel.minTempLabelText
-            maxTempLabel.text = currentViewModel.maxTempLabelText
+            let city = currentViewModel.currentWeather.name
+            let country = currentViewModel.currentWeather.sys.country
+            locationLabel.text = "\(city), \(country)"
+            
+            var weatherDescription = ""
+            var weatherID = 0
+            let weatherArray = currentViewModel.currentWeather.weather
+            weatherArray.forEach { (weather) in
+                weatherDescription = weather.main
+                weatherID = weather.id
+            }
+            WeatherConditionHandler.setImage(for: self.imageView, with: weatherID)
+            let temperature = Int(currentViewModel.currentWeather.main.temp)
+            weatherLabel.text = "\(temperature)°C | \(weatherDescription)"
+            let humidity = currentViewModel.currentWeather.main.humidity
+            humidityLabel.text = "\(humidity)%"
+            let pressure = currentViewModel.currentWeather.main.pressure
+            airPressureLabel.text = "\(pressure)hPa"
+            let windSpeed = currentViewModel.currentWeather.wind.speed
+            windLabel.text = "\(windSpeed)\nm/sec"
+            let minTemperature = Int(currentViewModel.currentWeather.main.tempMin)
+            minTempLabel.text = "\(minTemperature)°C"
+            let maxTemperature = Int(currentViewModel.currentWeather.main.tempMax)
+            maxTempLabel.text = "\(maxTemperature)°C"
         }
     }
     
@@ -104,9 +120,24 @@ class TodayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getWeatherFromCache()
+        let weather = [Weather(id: 0, main: "", description: "", icon: "")]
+        let main = Main(temp: 0.0, tempMin: 0.0, tempMax: 0.0, pressure: 0, humidity: 0)
+        let wind = Wind(speed: 0.0)
+        let sys = Sys(country: "")
+        let name = ""
+        let currentWeather = CurrentWeather(weather: weather, main: main, wind: wind, sys: sys, name: name)
+        currentViewModel = CurrentViewModel(currentWeather: currentWeather)
+        
+        currentViewModel.currentViewModelDelegate = self
+        currentViewModel.getWeatherFromCache()
         
         configureLocationManager()
+        
+        configure() 
+    }
+
+    //MARK: - configure()    
+    func configure() {
         
         view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -170,7 +201,6 @@ class TodayViewController: UIViewController {
         shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
     }
     
-    
     //MARK: - shareButtonTapped()
     @objc func shareButtonTapped() {
         let activityVC = ActivityVC(presentor: self)
@@ -184,38 +214,9 @@ class TodayViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        locationManagerDelegate?.delegate = self
+        locationManagerDelegate?.delegate = self.currentViewModel
     }
-    
-    //MARK: - getWeatherFromCache()      
-    private func getWeatherFromCache() {
-        DataHandler.getWeatherFromCache { [weak self] (currentWeather) in
-            guard let self = self else {return}
-            self.currentViewModel = CurrentViewModel(currentWeather: currentWeather)
-            self.textToShare = self.composeText(with: currentWeather)
-            self.headerLabel.text = "Downloading..."
-            self.headerLabel.font = UIFont.systemFont(ofSize: 17)
-        }
-    }
-    
-    //MARK: - composeText()    
-    private func composeText(with data: CurrentWeather) -> [String] {
-        let city = data.name
-        let country = data.sys.country
-        var weatherDescription = ""
-        let weatherArray = data.weather
-        weatherArray.forEach { (weather) in
-            weatherDescription = weather.main
-        }
-        let temperature = Int(data.main.temp)
-        let humidity = data.main.humidity
-        let pressure = data.main.pressure
-        let windSpeed = data.wind.speed
-        
-        let text = "City: \(city), country: \(country). \(weatherDescription), \(temperature)°C. Humidity: \(humidity)%. Air pressure: \(pressure)hPa. Wind speed: \(windSpeed)\nm/sec"
-        return [text]
-    }
-    
+
     //MARK: - createSubstackView()
     private func createSubstackView(category: Category) -> UIStackView { 
         let subStackView = UIStackView(arrangedSubviews: [])
@@ -264,22 +265,39 @@ class TodayViewController: UIViewController {
     }
 }
 
-extension TodayViewController: LocationDelegate {
+//MARK: - CurrentViewModelDelegate
+extension TodayViewController: CurrentViewModelDelegate {
     
-    func getWeather(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        DataHandler.getData(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (currentWeather, error) in
-            guard let self = self else {return}
-            
-            switch error {
-            case nil:
-                guard let currentWeather = currentWeather else {return}
-                self.currentViewModel = CurrentViewModel(currentWeather: currentWeather)
-                self.textToShare = self.composeText(with: currentWeather)
-                self.headerLabel.text = "Today"
-                self.headerLabel.font = UIFont.systemFont(ofSize: 20)
-            default:
-                print(String(describing: error?.localizedDescription))
-            }
+    func useData(_ data: CurrentWeather) {
+        currentViewModel = CurrentViewModel(currentWeather: data)
+    
+        headerLabel.text = "Downloading..."
+        headerLabel.font = UIFont.systemFont(ofSize: 17)
+        textToShare = composeText(with: data)
+    }
+    
+    func updateData(_ data: CurrentWeather) {
+        currentViewModel = CurrentViewModel(currentWeather: data)
+        textToShare = self.composeText(with: data)
+        headerLabel.text = "Today"
+        headerLabel.font = UIFont.systemFont(ofSize: 20)
+    }
+    
+    
+    private func composeText(with data: CurrentWeather) -> [String] {
+        let city = data.name
+        let country = data.sys.country
+        var weatherDescription = ""
+        let weatherArray = data.weather
+        weatherArray.forEach { (weather) in
+            weatherDescription = weather.main
         }
+        let temperature = Int(data.main.temp)
+        let humidity = data.main.humidity
+        let pressure = data.main.pressure
+        let windSpeed = data.wind.speed
+        
+        let text = "City: \(city), country: \(country). \(weatherDescription), \(temperature)°C. Humidity: \(humidity)%. Air pressure: \(pressure)hPa. Wind speed: \(windSpeed)\nm/sec"
+        return [text]
     }
 }
