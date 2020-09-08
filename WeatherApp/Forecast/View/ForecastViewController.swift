@@ -82,22 +82,7 @@ class ForecastViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        locationManagerDelegate?.viewController = self
-    }
-    
-    func getForecast(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        DataHandler.getInfo(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (forecastWeather) in
-            
-            guard let self = self else {return}
-            let city = forecastWeather.city.name
-            self.headerLabel.text = city
-            
-            let lists = forecastWeather.list
-            self.forecastViewModels = lists.map({return ForecastViewModel(list: $0)})
-            self.groupedForecastViewModels = DaysHandler.groupDays(self.forecastViewModels)
-            
-            self.tableView.reloadData()
-        }
+        locationManagerDelegate?.delegate2 = self
     }
     
     //MARK: - getWeatherFromCache()      
@@ -154,3 +139,20 @@ extension ForecastViewController: UITableViewDataSource {
     }
 }
 
+extension ForecastViewController: LocationDelegate2 {
+    
+    func getForecast(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        DataHandler.getInfo(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (forecastWeather) in
+            
+            guard let self = self else {return}
+            let city = forecastWeather.city.name
+            self.headerLabel.text = city
+            
+            let lists = forecastWeather.list
+            self.forecastViewModels = lists.map({return ForecastViewModel(list: $0)})
+            self.groupedForecastViewModels = DaysHandler.groupDays(self.forecastViewModels)
+            
+            self.tableView.reloadData()
+        }
+    }
+}

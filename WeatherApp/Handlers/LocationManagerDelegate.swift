@@ -9,10 +9,20 @@
 import UIKit
 import CoreLocation
 
+protocol LocationDelegate: class {
+    func getWeather(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees)
+}
+
+protocol LocationDelegate2: class {
+    func getForecast(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees)
+}
+
 class LocationManagerDelegate: NSObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
     weak var viewController: UIViewController?
+    weak var delegate: LocationDelegate?
+    weak var delegate2: LocationDelegate2?
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -20,13 +30,8 @@ class LocationManagerDelegate: NSObject, CLLocationManagerDelegate {
         guard let location = locations.last else { return } 
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
-        
-        if let todayViewController = viewController as? TodayViewController {
-            todayViewController.getWeather(on: .currentWeather, latitude: latitude, longitude: longitude)
-        }
-        if let forecastViewController = viewController as? ForecastViewController {
-            forecastViewController.getForecast(on: .forecast, latitude: latitude, longitude: longitude)
-        }
+        delegate?.getWeather(on: .currentWeather, latitude: latitude, longitude: longitude)
+        delegate2?.getForecast(on: .forecast, latitude: latitude, longitude: longitude)
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
