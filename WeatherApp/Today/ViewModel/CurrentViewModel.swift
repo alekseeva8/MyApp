@@ -35,12 +35,12 @@ class CurrentViewModel {
 extension CurrentViewModel: LocationDelegate {
     
     func getWeather(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        DataHandler.getData(on: requestCategory, latitude: latitude, longitude: longitude) { (currentWeather, error) in
-
+        DataHandler.getData(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (currentWeather, error) in
+            
             switch error {
             case nil:
                 guard let currentWeather = currentWeather else {return}
-                self.currentViewModelDelegate?.updateData(currentWeather)
+                self?.currentViewModelDelegate?.updateData(currentWeather)
                 
             default:
                 print(String(describing: error?.localizedDescription))

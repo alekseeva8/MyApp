@@ -135,9 +135,9 @@ class TodayViewController: UIViewController {
         
         configure() 
     }
-
+    
     //MARK: - configure()    
-    func configure() {
+    private func configure() {
         
         view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -216,7 +216,7 @@ class TodayViewController: UIViewController {
         locationManager.startUpdatingLocation()
         locationManagerDelegate?.delegate = self.currentViewModel
     }
-
+    
     //MARK: - createSubstackView()
     private func createSubstackView(category: Category) -> UIStackView { 
         let subStackView = UIStackView(arrangedSubviews: [])
@@ -270,7 +270,7 @@ extension TodayViewController: CurrentViewModelDelegate {
     
     func useData(_ data: CurrentWeather) {
         currentViewModel = CurrentViewModel(currentWeather: data)
-    
+        
         headerLabel.text = "Downloading..."
         headerLabel.font = UIFont.systemFont(ofSize: 17)
         textToShare = composeText(with: data)

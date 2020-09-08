@@ -7,33 +7,44 @@
 //
 
 import Foundation
+import CoreLocation
 
-struct ForecastViewModel {
+protocol ForecastViewModelDelegate: class  {
     
+    func useData(_ data: ForecastWeather)
+    func updateData(_ data: ForecastWeather)
+}
+
+class ForecastViewModel {
+    
+    var forecastViewModelDelegate: ForecastViewModelDelegate?
     let list: List
-    let textFortextLabel: String
-    let textForDetailTextLabel: String
-    var dayWeatherID: Int
     
     init(list: List) {
         self.list = list
-        
-        let dayTemperature = Int(list.main.temp)
-        
-        let time = list.time
-        let timeSplitted = time.split(separator: " ")
-        var hour = String(timeSplitted.last ?? "")
-        let hourTrancated = hour.dropLast(3)
-        hour = String(hourTrancated)
-        
-        let dayWeather = list.weather
-        var dayWeatherID = 0
-        dayWeather.forEach { (one) in
-            dayWeatherID = one.id
+    }
+    
+    func getForecastFromCache() {
+        DataHandler.getForecastFromCache { [weak self] (forecastWeather) in
+            guard let self = self else {return}
+            self.forecastViewModelDelegate?.useData(forecastWeather)
         }
-        self.dayWeatherID = dayWeatherID
-        self.textFortextLabel = "\(hour)"
-        self.textForDetailTextLabel = "\(dayTemperature)°"
-        
+    }
+}
+
+extension ForecastViewModel: LocationDelegate2 {
+    
+    func getForecast(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        DataHandler.getInfo(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (forecastWeather, error) in
+            
+            switch error {
+            case nil:
+                guard let forecastWeather = forecastWeather else {return}
+                self?.forecastViewModelDelegate?.updateData(forecastWeather)
+                
+            default:
+                print(String(describing: error?.localizedDescription))
+            }
+        }
     }
 }
