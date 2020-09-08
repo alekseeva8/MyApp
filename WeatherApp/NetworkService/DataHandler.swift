@@ -17,8 +17,10 @@ struct DataHandler {
             guard let data = data else {return}
             guard error == nil else {return}
             
+            Storage.save(data: data, fileName: Constants.fileName)
+            
             do {
-                let weatherData = try JSONDecoder().decode(CurrentWeather.self, from: data)
+                let weatherData = try JSONDecoder().decode(CurrentWeather.self, from: data)   
                 DispatchQueue.main.async {
                     completion(weatherData)
                 }
@@ -34,6 +36,8 @@ struct DataHandler {
             guard let data = data else {return}
             guard error == nil else {return}
             
+            Storage.save(data: data, fileName: Constants.forecastFileName)
+            
             do {
                 let weatherData = try JSONDecoder().decode(ForecastWeather.self, from: data)
                 DispatchQueue.main.async {
@@ -42,6 +46,30 @@ struct DataHandler {
             } catch let jsonError {
                 print("Failed to decode JSON ", jsonError)
             }
+        }
+    }
+    
+    static func getWeatherFromCache(completion: @escaping (CurrentWeather) -> Void) {
+        guard let dataFromFile = Storage.read(fileName: Constants.fileName) else { return }
+        do {
+            let weatherData = try JSONDecoder().decode(CurrentWeather.self, from: dataFromFile)   
+            DispatchQueue.main.async {
+                completion(weatherData)
+            }
+        } catch let jsonError {
+            print("Failed to decode JSON ", jsonError)
+        }
+    }
+    
+    static func getForecastFromCache(completion: @escaping (ForecastWeather) -> Void) {
+        guard let dataFromFile = Storage.read(fileName: Constants.forecastFileName) else { return }
+        do {
+            let weatherData = try JSONDecoder().decode(ForecastWeather.self, from: dataFromFile)   
+            DispatchQueue.main.async {
+                completion(weatherData)
+            }
+        } catch let jsonError {
+            print("Failed to decode JSON ", jsonError)
         }
     }
 }

@@ -104,6 +104,8 @@ class TodayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getWeatherFromCache()
+        
         configureLocationManager()
         
         view.addSubview(headerView)
@@ -184,15 +186,21 @@ class TodayViewController: UIViewController {
         locationManager.startUpdatingLocation()
         locationManagerDelegate?.viewController = self
     }
-
     
     //MARK: - getWeather()    
     func getWeather(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        
         DataHandler.getData(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (currentWeather) in
             guard let self = self else {return}
             self.currentViewModel = CurrentViewModel(currentWeather: currentWeather)
-
+            self.textToShare = self.composeText(with: currentWeather)
+        }
+    }
+    
+    //MARK: - getWeatherFromCache()      
+    private func getWeatherFromCache() {
+        DataHandler.getWeatherFromCache { [weak self] (currentWeather) in
+            guard let self = self else {return}
+            self.currentViewModel = CurrentViewModel(currentWeather: currentWeather)
             self.textToShare = self.composeText(with: currentWeather)
         }
     }

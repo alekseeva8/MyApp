@@ -45,6 +45,8 @@ class ForecastViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getForecastFromCache()
+        
         view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
         headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: -2).isActive = true
@@ -89,6 +91,21 @@ class ForecastViewController: UIViewController {
             guard let self = self else {return}
             let city = forecastWeather.city.name
             self.headerLabel.text = city
+            
+            let lists = forecastWeather.list
+            self.forecastViewModels = lists.map({return ForecastViewModel(list: $0)})
+            self.groupedForecastViewModels = DaysHandler.groupDays(self.forecastViewModels)
+            
+            self.tableView.reloadData()
+        }
+    }
+    
+    //MARK: - getWeatherFromCache()      
+    private func getForecastFromCache() {
+        DataHandler.getForecastFromCache { [weak self] (forecastWeather) in
+            guard let self = self else {return}
+            
+            self.headerLabel.text = "No Internet connection..."
             
             let lists = forecastWeather.list
             self.forecastViewModels = lists.map({return ForecastViewModel(list: $0)})

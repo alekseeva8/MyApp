@@ -20,6 +20,7 @@
 		F350F4D52506582B00899356 /* DaysHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4D42506582B00899356 /* DaysHandler.swift */; };
 		F350F4D72506957F00899356 /* ForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4D62506957F00899356 /* ForecastViewModel.swift */; };
 		F350F4DC2506BE1400899356 /* CurrentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4DB2506BE1400899356 /* CurrentViewModel.swift */; };
+		F350F4DF250770B800899356 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4DE250770B800899356 /* Storage.swift */; };
 		F399C111250434BA00A7B321 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F399C110250434BA00A7B321 /* Constants.swift */; };
 		F399C1132504B20D00A7B321 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F399C1122504B20D00A7B321 /* Alert.swift */; };
 		F3DFEB722504D520002DBDD5 /* ActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DFEB712504D520002DBDD5 /* ActivityVC.swift */; };
@@ -48,6 +49,7 @@
 		F350F4D42506582B00899356 /* DaysHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysHandler.swift; sourceTree = "<group>"; };
 		F350F4D62506957F00899356 /* ForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModel.swift; sourceTree = "<group>"; };
 		F350F4DB2506BE1400899356 /* CurrentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentViewModel.swift; sourceTree = "<group>"; };
+		F350F4DE250770B800899356 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		F399C110250434BA00A7B321 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F399C1122504B20D00A7B321 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		F3DFEB712504D520002DBDD5 /* ActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityVC.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				F340DE1F2501098700D5D3EA /* Forecast */,
 				F3F462C92503ECB100A7C0B6 /* Handlers */,
 				F3F462BD25027A5500A7C0B6 /* NetworkService */,
+				F350F4E0250770BE00899356 /* Storage */,
 				F3F462BC25027A1F00A7C0B6 /* CommonFiles */,
 				F340DE112501081700D5D3EA /* Assets.xcassets */,
 				F340DE162501081700D5D3EA /* Info.plist */,
@@ -164,6 +167,14 @@
 				F350F4DB2506BE1400899356 /* CurrentViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F350F4E0250770BE00899356 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				F350F4DE250770B800899356 /* Storage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		F3F462BC25027A1F00A7C0B6 /* CommonFiles */ = {
@@ -285,6 +296,7 @@
 				F3F462CB2504234700A7C0B6 /* RequestCategory.swift in Sources */,
 				F340DE1D2501094B00D5D3EA /* ForecastViewController.swift in Sources */,
 				F340A432250213D100918BDE /* UIStackView.swift in Sources */,
+				F350F4DF250770B800899356 /* Storage.swift in Sources */,
 				F3F462CD250423C800A7C0B6 /* URLBuilder.swift in Sources */,
 				F3DFEB722504D520002DBDD5 /* ActivityVC.swift in Sources */,
 				F399C1132504B20D00A7B321 /* Alert.swift in Sources */,

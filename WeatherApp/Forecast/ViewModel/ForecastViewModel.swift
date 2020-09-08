@@ -22,7 +22,9 @@ struct ForecastViewModel {
         
         let time = list.time
         let timeSplitted = time.split(separator: " ")
-        let hour = String(timeSplitted.last ?? "")
+        var hour = String(timeSplitted.last ?? "")
+        let hourTrancated = hour.dropLast(3)
+        hour = String(hourTrancated)
         
         let dayWeather = list.weather
          var dayWeatherID = 0
