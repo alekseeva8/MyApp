@@ -39,12 +39,32 @@ class ForecastViewController: UIViewController {
     private var locationManagerDelegate: LocationManagerDelegate?
     private var locationManager = CLLocationManager()
     
-    private var lists: [List] = []
-    private var days: [[List]] = []
+    private var forecastViewModels: [ForecastViewModel] = []
+    private var groupedForecastViewModels: [[ForecastViewModel]] = []
+    
+    var forecastViewModel: ForecastViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let weather = [Weather(id: 0, main: "", description: "", icon: "")]
+        let main = Main(temp: 0.0, tempMin: 0.0, tempMax: 0.0, pressure: 0, humidity: 0)
+        let list = List(main: main, weather: weather, time: "")
+        forecastViewModel = ForecastViewModel(list: list)
+        
+        forecastViewModel?.forecastViewModelDelegate = self
+        forecastViewModel?.getForecastFromCache()
+        
+        configure()
+        tableView.dataSource = self
+        tableView.register(ForecastTableViewCell.self, forCellReuseIdentifier: ForecastTableViewCell.reuseID)
+        
+        configureLocationManager()
+    }
+    
+    //MARK: - configure()
+    
+    private func configure() {
         view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
         headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: -2).isActive = true
@@ -56,10 +76,8 @@ class ForecastViewController: UIViewController {
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -15).isActive = true
         headerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        //MARK: - tableView
+
         view.addSubview(tableView)
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
@@ -67,13 +85,8 @@ class ForecastViewController: UIViewController {
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        
-        tableView.dataSource = self
-        
-        tableView.register(ForecastTableViewCell.self, forCellReuseIdentifier: ForecastTableViewCell.reuseID)
-        
-        configureLocationManager()
     }
+    
     
     //MARK: - configureLocationManager()
     private func configureLocationManager() {
@@ -82,70 +95,70 @@ class ForecastViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        locationManagerDelegate?.viewController = self
-    }
-    
-    func getForecast(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        DataHandler.getInfo(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (forecastWeather) in
-            
-            guard let self = self else {return}
-            let city = forecastWeather.city.name
-            self.headerLabel.text = city
-            
-            self.lists = forecastWeather.list
-            self.days = DaysHandler.groupDays(forecastWeather.list)
-            
-            self.tableView.reloadData()
-        }
+        locationManagerDelegate?.forecastLocationDelegate = forecastViewModel
     }
 }
 
+//MARK: - ForecastViewModelDelegate
+extension ForecastViewController: ForecastViewModelDelegate {
+    
+    func useData(_ data: ForecastWeather) {
+        
+        let lists = data.list
+        forecastViewModels = lists.map({return ForecastViewModel(list: $0)})
+        groupedForecastViewModels = DaysHandler.groupDays(self.forecastViewModels)
+        
+        headerLabel.text = "Downloading..."
+        headerLabel.font = UIFont.systemFont(ofSize: 17)
+        
+        tableView.reloadData()
+    }
+    
+    func updateData(_ data: ForecastWeather) {
+        let city = data.city.name
+        self.headerLabel.text = city
+        
+        let lists = data.list
+        self.forecastViewModels = lists.map({return ForecastViewModel(list: $0)})
+        self.groupedForecastViewModels = DaysHandler.groupDays(self.forecastViewModels)
+        
+        self.tableView.reloadData()
+    }
+}
 
 //MARK: - UITableViewDataSource
 extension ForecastViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        days.count
+        groupedForecastViewModels.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var date = ""
-        if let day = days[section].first {
-            let time = day.time
+        
+        if let days = groupedForecastViewModels[section].first {
+            let time = days.list.time
             let timeSplitted = time.split(separator: " ")
             date = String(timeSplitted.first ?? "")
+            let dateSplitted = date.split(separator: "-")
+            let day = dateSplitted[2]
+            let month = dateSplitted[1]
+            let year = dateSplitted[0]
+            date = "\(day).\(month).\(year)"
         }
         return date
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        days[section].count
+        groupedForecastViewModels[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ForecastTableViewCell.reuseID, for: indexPath) as? ForecastTableViewCell ?? UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: ForecastTableViewCell.reuseID, for: indexPath) as! ForecastTableViewCell
         
-        let day = days[indexPath.section][indexPath.row]
+        let forecastViewModel = groupedForecastViewModels[indexPath.section][indexPath.row]
+        cell.forecastViewModel = forecastViewModel
         
-        let dayTemperature = Int(day.main.temp)
-        
-        let time = day.time         //"2020-09-06 21:00:00"
-        let timeSplitted = time.split(separator: " ")
-        let hour = String(timeSplitted.last ?? "")
-        
-        let dayWeather = day.weather
-        var dayWeatherID = 0
-        dayWeather.forEach { (one) in
-            dayWeatherID = one.id
-        }
-        if let imageView = cell.imageView {
-            WeatherConditionHandler.setImage(for: imageView, with: dayWeatherID)
-        }
-        
-        cell.textLabel?.text = "\(hour)"
-        cell.detailTextLabel?.text = "\(dayTemperature)°"
-        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 30)
-        cell.detailTextLabel?.textColor = .systemBlue
         return cell
     }
 }

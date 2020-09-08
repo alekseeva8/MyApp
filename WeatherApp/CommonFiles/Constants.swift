@@ -15,4 +15,6 @@ enum Constants {
     static let path = "data/2.5/"
     static let metriFormat = "metric"
     static let apiKey = "c5b6286e8fbc74adb2cd92af02f6ea33"
+    static let fileName = "weather.txt"
+    static let forecastFileName = "forecast.txt"
 } 

@@ -18,6 +18,9 @@
 		F340DE152501081700D5D3EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F340DE132501081700D5D3EA /* LaunchScreen.storyboard */; };
 		F340DE1D2501094B00D5D3EA /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */; };
 		F350F4D52506582B00899356 /* DaysHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4D42506582B00899356 /* DaysHandler.swift */; };
+		F350F4D72506957F00899356 /* ForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4D62506957F00899356 /* ForecastViewModel.swift */; };
+		F350F4DC2506BE1400899356 /* CurrentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4DB2506BE1400899356 /* CurrentViewModel.swift */; };
+		F350F4DF250770B800899356 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4DE250770B800899356 /* Storage.swift */; };
 		F399C111250434BA00A7B321 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F399C110250434BA00A7B321 /* Constants.swift */; };
 		F399C1132504B20D00A7B321 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F399C1122504B20D00A7B321 /* Alert.swift */; };
 		F3DFEB722504D520002DBDD5 /* ActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DFEB712504D520002DBDD5 /* ActivityVC.swift */; };
@@ -44,6 +47,9 @@
 		F340DE162501081700D5D3EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		F350F4D42506582B00899356 /* DaysHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysHandler.swift; sourceTree = "<group>"; };
+		F350F4D62506957F00899356 /* ForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModel.swift; sourceTree = "<group>"; };
+		F350F4DB2506BE1400899356 /* CurrentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentViewModel.swift; sourceTree = "<group>"; };
+		F350F4DE250770B800899356 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		F399C110250434BA00A7B321 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F399C1122504B20D00A7B321 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		F3DFEB712504D520002DBDD5 /* ActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityVC.swift; sourceTree = "<group>"; };
@@ -67,25 +73,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F302A62E2504FB6800211BC7 /* Controller */ = {
+		F302A62E2504FB6800211BC7 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				F340DE0C2501081500D5D3EA /* TodayViewController.swift */,
 			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		F302A62F2504FBC900211BC7 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */,
-			);
-			path = Controller;
+			path = View;
 			sourceTree = "<group>";
 		};
 		F302A6302504FBD500211BC7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */,
 				F302A62C2504F9AA00211BC7 /* ForecastTableViewCell.swift */,
 			);
 			path = View;
@@ -126,6 +125,7 @@
 				F340DE1F2501098700D5D3EA /* Forecast */,
 				F3F462C92503ECB100A7C0B6 /* Handlers */,
 				F3F462BD25027A5500A7C0B6 /* NetworkService */,
+				F350F4E0250770BE00899356 /* Storage */,
 				F3F462BC25027A1F00A7C0B6 /* CommonFiles */,
 				F340DE112501081700D5D3EA /* Assets.xcassets */,
 				F340DE162501081700D5D3EA /* Info.plist */,
@@ -137,8 +137,8 @@
 			isa = PBXGroup;
 			children = (
 				F3F462C42502CF3600A7C0B6 /* Model */,
-				F302A62E2504FB6800211BC7 /* Controller */,
-				F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */,
+				F350F4DD2506BE1E00899356 /* ViewModel */,
+				F302A62E2504FB6800211BC7 /* View */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -147,10 +147,34 @@
 			isa = PBXGroup;
 			children = (
 				F302A6312504FBE500211BC7 /* Model */,
-				F302A62F2504FBC900211BC7 /* Controller */,
+				F350F4D82506AB8200899356 /* ViewModel */,
 				F302A6302504FBD500211BC7 /* View */,
 			);
 			path = Forecast;
+			sourceTree = "<group>";
+		};
+		F350F4D82506AB8200899356 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F350F4D62506957F00899356 /* ForecastViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F350F4DD2506BE1E00899356 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F350F4DB2506BE1400899356 /* CurrentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F350F4E0250770BE00899356 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				F350F4DE250770B800899356 /* Storage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		F3F462BC25027A1F00A7C0B6 /* CommonFiles */ = {
@@ -160,7 +184,6 @@
 				F3DFEB712504D520002DBDD5 /* ActivityVC.swift */,
 				F3F462CA2504234700A7C0B6 /* RequestCategory.swift */,
 				F399C110250434BA00A7B321 /* Constants.swift */,
-				F3F462CC250423C800A7C0B6 /* URLBuilder.swift */,
 				F399C1122504B20D00A7B321 /* Alert.swift */,
 			);
 			path = CommonFiles;
@@ -169,6 +192,7 @@
 		F3F462BD25027A5500A7C0B6 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
+				F3F462CC250423C800A7C0B6 /* URLBuilder.swift */,
 				F3F462BE25027A7B00A7C0B6 /* APIHandler.swift */,
 				F3F462C02502C5EE00A7C0B6 /* DataHandler.swift */,
 			);
@@ -188,6 +212,7 @@
 			children = (
 				F3F462C72503EC9700A7C0B6 /* WeatherConditionHandler.swift */,
 				F350F4D42506582B00899356 /* DaysHandler.swift */,
+				F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */,
 			);
 			path = Handlers;
 			sourceTree = "<group>";
@@ -266,14 +291,17 @@
 				F302A62D2504F9AA00211BC7 /* ForecastTableViewCell.swift in Sources */,
 				F3F462C32502CF2A00A7C0B6 /* CurrentWeather.swift in Sources */,
 				F326F6B4250519A600066F1F /* ForecastWeather.swift in Sources */,
+				F350F4D72506957F00899356 /* ForecastViewModel.swift in Sources */,
 				F340DE0D2501081500D5D3EA /* TodayViewController.swift in Sources */,
 				F3F462CB2504234700A7C0B6 /* RequestCategory.swift in Sources */,
 				F340DE1D2501094B00D5D3EA /* ForecastViewController.swift in Sources */,
 				F340A432250213D100918BDE /* UIStackView.swift in Sources */,
+				F350F4DF250770B800899356 /* Storage.swift in Sources */,
 				F3F462CD250423C800A7C0B6 /* URLBuilder.swift in Sources */,
 				F3DFEB722504D520002DBDD5 /* ActivityVC.swift in Sources */,
 				F399C1132504B20D00A7B321 /* Alert.swift in Sources */,
 				F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */,
+				F350F4DC2506BE1400899356 /* CurrentViewModel.swift in Sources */,
 				F399C111250434BA00A7B321 /* Constants.swift in Sources */,
 				F3F462C12502C5EE00A7C0B6 /* DataHandler.swift in Sources */,
 				F340DE0B2501081500D5D3EA /* SceneDelegate.swift in Sources */,
@@ -434,7 +462,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = education.WeatherApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -452,7 +480,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = education.WeatherApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

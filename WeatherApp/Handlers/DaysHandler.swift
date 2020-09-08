@@ -10,13 +10,13 @@ import Foundation
 
 class DaysHandler {
     
-    static func groupDays(_ lists: [List]) -> [[List]] {
+    static func groupDays(_ models: [ForecastViewModel]) -> [[ForecastViewModel]] {
         
-        var days: [[List]] = []
+        var days: [[ForecastViewModel]] = []
         
         var indexesFor0 : [Int] = []
-        for (index, value) in lists.enumerated() {
-            let time = value.time
+        for (index, value) in models.enumerated() {
+            let time = value.list.time
             let timeSplitted = time.split(separator: " ")
             let hour = String(timeSplitted.last ?? "")
             if hour == "00:00:00" {
@@ -26,18 +26,18 @@ class DaysHandler {
         
         if !indexesFor0.isEmpty {
             let rangeFirst = 0..<indexesFor0[0]
-            days.append(Array.init(lists[rangeFirst]))
+            days.append(Array.init(models[rangeFirst]))
             for (index, value) in indexesFor0.enumerated() {
                 if let lastValue = indexesFor0.last {
                     if value < lastValue {
                         let range = value ..< indexesFor0[index+1]
-                        days.append(Array.init(lists[range]))
+                        days.append(Array.init(models[range]))
                     }
                 }
             }
             if let lastValue = indexesFor0.last {
-                let rangeLast = lastValue..<lists.count
-                days.append(Array.init(lists[rangeLast]))
+                let rangeLast = lastValue..<models.count
+                days.append(Array.init(models[rangeLast]))
             }
         }
         return days
