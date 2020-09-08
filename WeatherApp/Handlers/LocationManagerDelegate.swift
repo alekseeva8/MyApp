@@ -9,11 +9,11 @@
 import UIKit
 import CoreLocation
 
-protocol LocationDelegate: class {
+protocol CurrentLocationDelegate: class {
     func getWeather(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees)
 }
 
-protocol LocationDelegate2: class {
+protocol ForecastLocationDelegate: class {
     func getForecast(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees)
 }
 
@@ -21,8 +21,8 @@ class LocationManagerDelegate: NSObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
     weak var viewController: UIViewController?
-    var delegate: LocationDelegate?
-    weak var delegate2: LocationDelegate2?
+    var currentLocationDelegate: CurrentLocationDelegate?
+    weak var forecastLocationDelegate: ForecastLocationDelegate?
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -30,8 +30,8 @@ class LocationManagerDelegate: NSObject, CLLocationManagerDelegate {
         guard let location = locations.last else { return } 
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
-        delegate?.getWeather(on: .currentWeather, latitude: latitude, longitude: longitude)
-        delegate2?.getForecast(on: .forecast, latitude: latitude, longitude: longitude)
+        currentLocationDelegate?.getWeather(on: .currentWeather, latitude: latitude, longitude: longitude)
+        forecastLocationDelegate?.getForecast(on: .forecast, latitude: latitude, longitude: longitude)
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -40,7 +40,7 @@ class LocationManagerDelegate: NSObject, CLLocationManagerDelegate {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .denied, .restricted:
-            guard let delegate = delegate as? UIViewController else {return}
+            guard let delegate = currentLocationDelegate as? UIViewController else {return}
             Alert.locationServiceIsDisabled(delegate)
         case .authorizedAlways, .authorizedWhenInUse:
             break

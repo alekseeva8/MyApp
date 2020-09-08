@@ -95,7 +95,7 @@ class ForecastViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        locationManagerDelegate?.delegate2 = forecastViewModel
+        locationManagerDelegate?.forecastLocationDelegate = forecastViewModel
     }
 }
 

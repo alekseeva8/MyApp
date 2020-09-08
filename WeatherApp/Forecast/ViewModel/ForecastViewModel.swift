@@ -32,7 +32,7 @@ class ForecastViewModel {
     }
 }
 
-extension ForecastViewModel: LocationDelegate2 {
+extension ForecastViewModel: ForecastLocationDelegate {
     
     func getForecast(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
         DataHandler.getInfo(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (forecastWeather, error) in

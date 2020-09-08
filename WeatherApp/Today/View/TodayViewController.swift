@@ -214,7 +214,7 @@ class TodayViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        locationManagerDelegate?.delegate = self.currentViewModel
+        locationManagerDelegate?.currentLocationDelegate = self.currentViewModel
     }
     
     //MARK: - createSubstackView()
