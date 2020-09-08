@@ -11,21 +11,24 @@ import CoreLocation
 
 struct DataHandler {
     
-    static func getData(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (CurrentWeather) -> Void) {
+    static func getData(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (CurrentWeather?, Error?) -> Void) {
         
         APIHandler.request(on: requestCategory, latitude: latitude, longitude: longitude) { (data, error) in
             guard let data = data else {return}
-            guard error == nil else {return}
             
-            Storage.save(data: data, fileName: Constants.fileName)
-            
-            do {
-                let weatherData = try JSONDecoder().decode(CurrentWeather.self, from: data)   
-                DispatchQueue.main.async {
-                    completion(weatherData)
+            switch error {
+            case nil: 
+                Storage.save(data: data, fileName: Constants.fileName)
+                do {
+                    let weatherData = try JSONDecoder().decode(CurrentWeather.self, from: data)   
+                    DispatchQueue.main.async {
+                        completion(weatherData, nil)
+                    }
+                } catch let jsonError {
+                    print("Failed to decode JSON ", jsonError)
                 }
-            } catch let jsonError {
-                print("Failed to decode JSON ", jsonError)
+            default:
+                completion(nil, error)
             }
         }
     }

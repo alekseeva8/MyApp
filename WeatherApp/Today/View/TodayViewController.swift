@@ -21,8 +21,8 @@ class TodayViewController: UIViewController {
             windLabel.text = currentViewModel.windLabelText
             minTempLabel.text = currentViewModel.minTempLabelText
             maxTempLabel.text = currentViewModel.maxTempLabelText
-            }
         }
+    }
     
     private enum Category: String {
         case humidity = "Humidity" 
@@ -98,7 +98,7 @@ class TodayViewController: UIViewController {
     private var locationManager = CLLocationManager()
     
     private var textToShare: [String] = []
-
+    
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -189,10 +189,19 @@ class TodayViewController: UIViewController {
     
     //MARK: - getWeather()    
     func getWeather(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        DataHandler.getData(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (currentWeather) in
+        DataHandler.getData(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (currentWeather, error) in
             guard let self = self else {return}
-            self.currentViewModel = CurrentViewModel(currentWeather: currentWeather)
-            self.textToShare = self.composeText(with: currentWeather)
+            
+            switch error {
+            case nil:
+                guard let currentWeather = currentWeather else {return}
+                self.currentViewModel = CurrentViewModel(currentWeather: currentWeather)
+                self.textToShare = self.composeText(with: currentWeather)
+                self.headerLabel.text = "Today"
+                self.headerLabel.font = UIFont.systemFont(ofSize: 20)
+            default:
+                print(String(describing: error?.localizedDescription))
+            }
         }
     }
     
@@ -202,9 +211,11 @@ class TodayViewController: UIViewController {
             guard let self = self else {return}
             self.currentViewModel = CurrentViewModel(currentWeather: currentWeather)
             self.textToShare = self.composeText(with: currentWeather)
+            self.headerLabel.text = "Downloading..."
+            self.headerLabel.font = UIFont.systemFont(ofSize: 17)
         }
     }
-
+    
     //MARK: - composeText()    
     private func composeText(with data: CurrentWeather) -> [String] {
         let city = data.name

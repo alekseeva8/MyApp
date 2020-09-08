@@ -105,11 +105,12 @@ class ForecastViewController: UIViewController {
         DataHandler.getForecastFromCache { [weak self] (forecastWeather) in
             guard let self = self else {return}
             
-            self.headerLabel.text = "No Internet connection..."
-            
             let lists = forecastWeather.list
             self.forecastViewModels = lists.map({return ForecastViewModel(list: $0)})
             self.groupedForecastViewModels = DaysHandler.groupDays(self.forecastViewModels)
+            
+            self.headerLabel.text = "Downloading..."
+            self.headerLabel.font = UIFont.systemFont(ofSize: 17)
             
             self.tableView.reloadData()
         }
@@ -148,7 +149,7 @@ extension ForecastViewController: UITableViewDataSource {
         
         let forecastViewModel = groupedForecastViewModels[indexPath.section][indexPath.row]
         cell.forecastViewModel = forecastViewModel
-    
+        
         return cell
     }
 }

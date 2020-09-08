@@ -27,10 +27,10 @@ struct ForecastViewModel {
         hour = String(hourTrancated)
         
         let dayWeather = list.weather
-         var dayWeatherID = 0
-         dayWeather.forEach { (one) in
-             dayWeatherID = one.id
-         }
+        var dayWeatherID = 0
+        dayWeather.forEach { (one) in
+            dayWeatherID = one.id
+        }
         self.dayWeatherID = dayWeatherID
         self.textFortextLabel = "\(hour)"
         self.textForDetailTextLabel = "\(dayTemperature)°"
