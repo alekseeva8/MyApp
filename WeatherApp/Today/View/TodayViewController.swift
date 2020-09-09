@@ -61,6 +61,7 @@ class TodayViewController: UIViewController {
         let view = UIImageView(frame: frame)
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
+        view.backgroundColor = UIColor.headerViewColor
         return view
     }()
     

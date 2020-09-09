@@ -24,6 +24,7 @@ class ForecastViewController: UIViewController {
         let view = UIImageView(frame: frame)
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.black.cgColor
+        view.backgroundColor = UIColor.headerViewColor
         return view
     }()
     
@@ -56,6 +57,7 @@ class ForecastViewController: UIViewController {
         forecastViewModel?.getForecastFromCache()
         
         configure()
+        tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ForecastTableViewCell.self, forCellReuseIdentifier: ForecastTableViewCell.reuseID)
         
@@ -117,6 +119,7 @@ extension ForecastViewController: ForecastViewModelDelegate {
     func updateData(_ data: ForecastWeather) {
         let city = data.city.name
         self.headerLabel.text = city
+        self.headerLabel.font = UIFont.systemFont(ofSize: 20)
         
         let lists = data.list
         self.forecastViewModels = lists.map({return ForecastViewModel(list: $0)})
@@ -133,7 +136,24 @@ extension ForecastViewController: UITableViewDataSource {
         groupedForecastViewModels.count
     }
     
+    func getDate(in section: Int) -> String {
+        var date = ""
+        
+        if let days = groupedForecastViewModels[section].first {
+            let time = days.list.time
+            let timeSplitted = time.split(separator: " ")
+            date = String(timeSplitted.first ?? "")
+            let dateSplitted = date.split(separator: "-")
+            let day = dateSplitted[2]
+            let month = dateSplitted[1]
+            let year = dateSplitted[0]
+            date = "\(day).\(month).\(year)"
+        }
+        return date
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
         var date = ""
         
         if let days = groupedForecastViewModels[section].first {
@@ -160,6 +180,12 @@ extension ForecastViewController: UITableViewDataSource {
         cell.forecastViewModel = forecastViewModel
         
         return cell
+    }
+}
+
+extension ForecastViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        section == 0 ? 50 : 20
     }
 }
 
