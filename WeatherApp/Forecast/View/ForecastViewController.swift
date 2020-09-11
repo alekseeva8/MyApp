@@ -136,6 +136,23 @@ extension ForecastViewController: UITableViewDataSource {
         groupedForecastViewModels.count
     }
     
+        func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        getDate(in: section)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        groupedForecastViewModels[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ForecastTableViewCell.reuseID, for: indexPath) as! ForecastTableViewCell
+        
+        let forecastViewModel = groupedForecastViewModels[indexPath.section][indexPath.row]
+        cell.forecastViewModel = forecastViewModel
+        
+        return cell
+    }
+    
     func getDate(in section: Int) -> String {
         var date = ""
         
@@ -150,36 +167,6 @@ extension ForecastViewController: UITableViewDataSource {
             date = "\(day).\(month).\(year)"
         }
         return date
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        var date = ""
-        
-        if let days = groupedForecastViewModels[section].first {
-            let time = days.list.time
-            let timeSplitted = time.split(separator: " ")
-            date = String(timeSplitted.first ?? "")
-            let dateSplitted = date.split(separator: "-")
-            let day = dateSplitted[2]
-            let month = dateSplitted[1]
-            let year = dateSplitted[0]
-            date = "\(day).\(month).\(year)"
-        }
-        return date
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        groupedForecastViewModels[section].count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ForecastTableViewCell.reuseID, for: indexPath) as! ForecastTableViewCell
-        
-        let forecastViewModel = groupedForecastViewModels[indexPath.section][indexPath.row]
-        cell.forecastViewModel = forecastViewModel
-        
-        return cell
     }
 }
 
