@@ -20,7 +20,7 @@ class TodayViewController: UIViewController {
             weatherLabel.text = "\(data.temperature)°C | \(data.description)"
             humidityLabel.text = "\(data.humidity)%"
             airPressureLabel.text = "\(data.pressure)hPa"
-            windLabel.text = "\(data.windSpeed)\nm/sec"
+            windLabel.text = "\(data.windSpeed)\nkm/h"
             minTempLabel.text = "\(data.minTemp)°C"
             maxTempLabel.text = "\(data.maxTemp)°C"
         }
@@ -272,7 +272,7 @@ extension TodayViewController: CurrentViewModelDelegate {
     private func composeText(from viewModel: CurrentViewModel) -> [String] {
         
         let data = Converter.convert(viewModel)
-        let text = "City: \(data.city), country: \(data.country). \(data.description), \(data.temperature)°C. Humidity: \(data.humidity)%. Air pressure: \(data.pressure)hPa. Wind speed: \(data.windSpeed)\nm/sec"
+        let text = "City: \(data.city), country: \(data.country). \(data.description), \(data.temperature)°C. Humidity: \(data.humidity)%. Air pressure: \(data.pressure)hPa. Wind speed: \(data.windSpeed)\nkm/h"
         return [text]
     }
 }

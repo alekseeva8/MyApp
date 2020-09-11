@@ -10,7 +10,7 @@ import Foundation
 
 struct Converter {
     
-    static func convert(_ currentViewModel: CurrentViewModel) -> (city: String, country: String, description: String, weatherID: Int, temperature: Int, humidity: Int, pressure: Int, windSpeed: Double, minTemp: Int, maxTemp: Int) {
+    static func convert(_ currentViewModel: CurrentViewModel) -> (city: String, country: String, description: String, weatherID: Int, temperature: Int, humidity: Int, pressure: Int, windSpeed: Int, minTemp: Int, maxTemp: Int) {
         
         let city = currentViewModel.currentWeather.name
         let country = currentViewModel.currentWeather.sys.country
@@ -23,12 +23,20 @@ struct Converter {
             weatherID = weather.id
         }
         
-        let temperature = Int(currentViewModel.currentWeather.main.temp)
+        let tempDouble = currentViewModel.currentWeather.main.temp
+        let temperature = Int(tempDouble.rounded())
+        
         let humidity = currentViewModel.currentWeather.main.humidity
         let pressure = currentViewModel.currentWeather.main.pressure
-        let windSpeed = currentViewModel.currentWeather.wind.speed
-        let minTemp = Int(currentViewModel.currentWeather.main.tempMin)
-        let maxTemp = Int(currentViewModel.currentWeather.main.tempMax)
+        
+        let windSpeedDouble = (currentViewModel.currentWeather.wind.speed) * 3.6
+        let windSpeed = Int(windSpeedDouble.rounded())
+        
+        let minTempDouble = currentViewModel.currentWeather.main.tempMin
+        let minTemp = Int(minTempDouble.rounded())
+        
+        let maxTempDouble = currentViewModel.currentWeather.main.tempMax
+        let maxTemp = Int(maxTempDouble.rounded())
         
         return (city, country, weatherDescription, weatherID, temperature, humidity, pressure, windSpeed, minTemp, maxTemp)
         
@@ -36,7 +44,8 @@ struct Converter {
     
     static func convert(_ forecastViewModel: ForecastViewModel) -> (temperature: Int, hour: String, weatherID: Int) {
         
-        let temperature = Int(forecastViewModel.list.main.temp)
+        let tempDouble = forecastViewModel.list.main.temp
+        let temperature = Int(tempDouble.rounded())
         
         let time = forecastViewModel.list.time
         let timeSplitted = time.split(separator: " ")
