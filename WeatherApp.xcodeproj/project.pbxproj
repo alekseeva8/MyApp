@@ -24,6 +24,7 @@
 		F350F4E225084A6900899356 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4E125084A6900899356 /* UIColor.swift */; };
 		F399C111250434BA00A7B321 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F399C110250434BA00A7B321 /* Constants.swift */; };
 		F399C1132504B20D00A7B321 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F399C1122504B20D00A7B321 /* Alert.swift */; };
+		F3AECA92250BA782008CBDF6 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AECA91250BA782008CBDF6 /* Converter.swift */; };
 		F3DFEB722504D520002DBDD5 /* ActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DFEB712504D520002DBDD5 /* ActivityVC.swift */; };
 		F3F462BB2502722D00A7C0B6 /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */; };
 		F3F462BF25027A7B00A7C0B6 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F462BE25027A7B00A7C0B6 /* APIHandler.swift */; };
@@ -54,6 +55,7 @@
 		F350F4E125084A6900899356 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		F399C110250434BA00A7B321 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F399C1122504B20D00A7B321 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		F3AECA91250BA782008CBDF6 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		F3DFEB712504D520002DBDD5 /* ActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityVC.swift; sourceTree = "<group>"; };
 		F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
 		F3F462BE25027A7B00A7C0B6 /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				F3F462C72503EC9700A7C0B6 /* WeatherConditionHandler.swift */,
 				F350F4D42506582B00899356 /* DaysHandler.swift */,
 				F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */,
+				F3AECA91250BA782008CBDF6 /* Converter.swift */,
 			);
 			path = Handlers;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				F3DFEB722504D520002DBDD5 /* ActivityVC.swift in Sources */,
 				F399C1132504B20D00A7B321 /* Alert.swift in Sources */,
 				F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */,
+				F3AECA92250BA782008CBDF6 /* Converter.swift in Sources */,
 				F350F4DC2506BE1400899356 /* CurrentViewModel.swift in Sources */,
 				F399C111250434BA00A7B321 /* Constants.swift in Sources */,
 				F3F462C12502C5EE00A7C0B6 /* DataHandler.swift in Sources */,

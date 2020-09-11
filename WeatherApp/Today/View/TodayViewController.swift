@@ -13,30 +13,16 @@ class TodayViewController: UIViewController {
     
     var currentViewModel: CurrentViewModel! {
         didSet {
-            let city = currentViewModel.currentWeather.name
-            let country = currentViewModel.currentWeather.sys.country
-            locationLabel.text = "\(city), \(country)"
+            let data = Converter.convert(currentViewModel)
             
-            var weatherDescription = ""
-            var weatherID = 0
-            let weatherArray = currentViewModel.currentWeather.weather
-            weatherArray.forEach { (weather) in
-                weatherDescription = weather.main
-                weatherID = weather.id
-            }
-            WeatherConditionHandler.setImage(for: self.imageView, with: weatherID)
-            let temperature = Int(currentViewModel.currentWeather.main.temp)
-            weatherLabel.text = "\(temperature)°C | \(weatherDescription)"
-            let humidity = currentViewModel.currentWeather.main.humidity
-            humidityLabel.text = "\(humidity)%"
-            let pressure = currentViewModel.currentWeather.main.pressure
-            airPressureLabel.text = "\(pressure)hPa"
-            let windSpeed = currentViewModel.currentWeather.wind.speed
-            windLabel.text = "\(windSpeed)\nm/sec"
-            let minTemperature = Int(currentViewModel.currentWeather.main.tempMin)
-            minTempLabel.text = "\(minTemperature)°C"
-            let maxTemperature = Int(currentViewModel.currentWeather.main.tempMax)
-            maxTempLabel.text = "\(maxTemperature)°C"
+            locationLabel.text = "\(data.city), \(data.country)"
+            WeatherConditionHandler.setImage(for: self.imageView, with: data.weatherID)
+            weatherLabel.text = "\(data.temperature)°C | \(data.description)"
+            humidityLabel.text = "\(data.humidity)%"
+            airPressureLabel.text = "\(data.pressure)hPa"
+            windLabel.text = "\(data.windSpeed)\nm/sec"
+            minTempLabel.text = "\(data.minTemp)°C"
+            maxTempLabel.text = "\(data.maxTemp)°C"
         }
     }
     
@@ -271,34 +257,22 @@ extension TodayViewController: CurrentViewModelDelegate {
     
     func useData(_ data: CurrentWeather) {
         currentViewModel = CurrentViewModel(currentWeather: data)
-        
+        textToShare = composeText(from: currentViewModel)
         headerLabel.text = "Downloading..."
         headerLabel.font = UIFont.systemFont(ofSize: 17)
-        textToShare = composeText(with: data)
     }
     
     func updateData(_ data: CurrentWeather) {
         currentViewModel = CurrentViewModel(currentWeather: data)
-        textToShare = self.composeText(with: data)
+        textToShare = self.composeText(from: currentViewModel)
         headerLabel.text = "Today"
         headerLabel.font = UIFont.systemFont(ofSize: 20)
     }
     
-    
-    private func composeText(with data: CurrentWeather) -> [String] {
-        let city = data.name
-        let country = data.sys.country
-        var weatherDescription = ""
-        let weatherArray = data.weather
-        weatherArray.forEach { (weather) in
-            weatherDescription = weather.main
-        }
-        let temperature = Int(data.main.temp)
-        let humidity = data.main.humidity
-        let pressure = data.main.pressure
-        let windSpeed = data.wind.speed
+    private func composeText(from viewModel: CurrentViewModel) -> [String] {
         
-        let text = "City: \(city), country: \(country). \(weatherDescription), \(temperature)°C. Humidity: \(humidity)%. Air pressure: \(pressure)hPa. Wind speed: \(windSpeed)\nm/sec"
+        let data = Converter.convert(viewModel)
+        let text = "City: \(data.city), country: \(data.country). \(data.description), \(data.temperature)°C. Humidity: \(data.humidity)%. Air pressure: \(data.pressure)hPa. Wind speed: \(data.windSpeed)\nm/sec"
         return [text]
     }
 }
