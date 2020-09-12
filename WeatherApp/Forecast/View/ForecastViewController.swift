@@ -45,6 +45,12 @@ class ForecastViewController: UIViewController {
     
     var forecastViewModel: ForecastViewModel?
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.color = .darkGray
+        return activityIndicator
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,6 +68,10 @@ class ForecastViewController: UIViewController {
         tableView.register(ForecastTableViewCell.self, forCellReuseIdentifier: ForecastTableViewCell.reuseID)
         
         configureLocationManager()
+        
+        view.addSubview(activityIndicator)
+        configureActivityIndicator()
+        activityIndicator.startAnimating()
     }
     
     //MARK: - configure()
@@ -88,7 +98,14 @@ class ForecastViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
-    
+
+    //MARK: - configureActivityIndicator()      
+    private func configureActivityIndicator() {                          
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.hidesWhenStopped = true
+    }
     
     //MARK: - configureLocationManager()
     private func configureLocationManager() {
@@ -126,6 +143,7 @@ extension ForecastViewController: ForecastViewModelDelegate {
         self.groupedForecastViewModels = DaysHandler.groupDays(self.forecastViewModels)
         
         self.tableView.reloadData()
+        activityIndicator.stopAnimating()
     }
 }
 

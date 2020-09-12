@@ -99,6 +99,12 @@ class TodayViewController: UIViewController {
     
     private var textToShare: [String] = []
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.color = .darkGray
+        return activityIndicator
+    }()
+    
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -118,6 +124,10 @@ class TodayViewController: UIViewController {
         configureLocationManager()
         
         configure() 
+        
+        view.addSubview(activityIndicator)
+        configureActivityIndicator()
+        activityIndicator.startAnimating()
     }
     
     //MARK: - configure()    
@@ -185,6 +195,14 @@ class TodayViewController: UIViewController {
         shareButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
         shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+    }
+
+    //MARK: - configureActivityIndicator()    
+    private func configureActivityIndicator() {                          
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerYAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: 30).isActive = true
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.hidesWhenStopped = true
     }
     
     //MARK: - shareButtonTapped()
@@ -266,6 +284,7 @@ extension TodayViewController: CurrentViewModelDelegate {
         textToShare = self.composeText(from: currentViewModel)
         headerLabel.text = "Today"
         headerLabel.font = UIFont.systemFont(ofSize: 20)
+        activityIndicator.stopAnimating()
     }
     
     private func composeText(from viewModel: CurrentViewModel) -> [String] {
