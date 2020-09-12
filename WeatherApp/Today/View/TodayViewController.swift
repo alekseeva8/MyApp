@@ -14,7 +14,6 @@ class TodayViewController: UIViewController {
     var currentViewModel: CurrentViewModel! {
         didSet {
             let data = Converter.convert(currentViewModel)
-            
             locationLabel.text = "\(data.city), \(data.country)"
             WeatherConditionHandler.setImage(for: self.imageView, with: data.weatherID)
             weatherLabel.text = "\(data.temperature)°C | \(data.description)"
@@ -52,21 +51,19 @@ class TodayViewController: UIViewController {
     }()
     
     private var imageView: UIImageView = {
-        let image = UIImage(named: "sun")
+        let image = UIImage()
         let view = UIImageView(image: image) 
         return view
     }()
     
     private let locationLabel: UILabel = {
         let label = UILabel()
-        label.text = "London, UK"
         label.textColor = .black
         return label
     }()
     
     private let weatherLabel: UILabel = {
         let label = UILabel()
-        label.text = "22°C | Sunny"
         label.textColor = .systemBlue
         label.font = UIFont.systemFont(ofSize: 25)
         return label
@@ -146,6 +143,7 @@ class TodayViewController: UIViewController {
         topStackView.insertArrangedSubview(imageView, at: 0)
         topStackView.addArrangedSubview(locationLabel)
         topStackView.addArrangedSubview(weatherLabel)
+        weatherLabel.text = "--°C | --"
         imageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         topStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -154,6 +152,7 @@ class TodayViewController: UIViewController {
         topStackView.spacing = 10
         topStackView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: distance).isActive = true
         topStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
         
         view.addSubview(topStack)
         let humidityStack = createSubstackView(category: .humidity)
@@ -225,19 +224,19 @@ class TodayViewController: UIViewController {
         switch title {
         case .humidity:
             humidityLabel = label
-            humidityLabel.text = "0%"
+            humidityLabel.text = "--%"
         case .airPressure:
             airPressureLabel = label
-            airPressureLabel.text = "0hPa"
+            airPressureLabel.text = "--hPa"
         case .wind:
             windLabel = label
-            windLabel.text = "0\nm/sec"
+            windLabel.text = "--\nkm/h"
         case .minTemperature:
             minTempLabel = label
-            minTempLabel.text = "0°C"
+            minTempLabel.text = "--°C"
         case .maxTemperature:
             maxTempLabel = label
-            maxTempLabel.text = "°0C"
+            maxTempLabel.text = "--°C"
         }
         label.textColor = .black
         return label

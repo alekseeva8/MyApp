@@ -15,7 +15,6 @@ class ForecastTableViewCell: UITableViewCell {
     var forecastViewModel: ForecastViewModel! {
         didSet {
             let data = Converter.convert(forecastViewModel)
-            
             textLabel?.text = "\(data.hour)"
             detailTextLabel?.text = "\(data.temperature)°"
             if let imageView = imageView {
