@@ -10,5 +10,5 @@ import UIKit
 
 extension UIColor {
     
-    static let headerViewColor = UIColor(named: "BlueColor")
+    static let headerViewColor = UIColor(named: "HeaderColor")
 }

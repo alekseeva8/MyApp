@@ -33,6 +33,13 @@ class TodayViewController: UIViewController {
         case maxTemperature = "MaxTemp"
     }
     
+    private let backgroundView: UIImageView = {
+        let image = UIImage(named: "splash")
+        let bgView = UIImageView(image: image)
+        bgView.alpha = 0.3
+        return bgView
+    }()
+    
      private let headerLabel: UILabel = {
         let label = UILabel()
         label.text = "Today" 
@@ -132,6 +139,8 @@ class TodayViewController: UIViewController {
     
     //MARK: - configure()    
     private func configure() {
+        
+        view.addSubview(backgroundView)
         
         view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false

@@ -32,6 +32,13 @@ class SearchViewController: UIViewController {
         case maxTemperature = "MaxTemp"
     }
     
+    private let backgroundView: UIImageView = {
+        let image = UIImage(named: "splash")
+        let bgView = UIImageView(image: image)
+        bgView.alpha = 0.3
+        return bgView
+    }()
+    
     private let headerView: UIImageView = {
         let frame = CGRect(x: 0, y: 0, width: 375, height: 70)
         let view = UIImageView(frame: frame)
@@ -115,6 +122,8 @@ class SearchViewController: UIViewController {
     
     //MARK: - configure()    
     private func configure() {
+        
+        view.addSubview(backgroundView)
         
         view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
