@@ -23,6 +23,22 @@
             </objects>
             <point key="canvasLocation" x="1077.5999999999999" y="115.59220389805098"/>
         </scene>
+        <!--Search View Controller-->
+        <scene sceneID="grN-cz-UCS">
+            <objects>
+                <viewController id="nPR-j6-c2o" customClass="SearchViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3WJ-2w-1eb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="3S7-ac-fBT"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="TWb-Un-TOG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WAA-jX-RLZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137" y="1251"/>
+        </scene>
         <!--Forecast-->
         <scene sceneID="oir-38-s8J">
             <objects>
@@ -44,6 +60,7 @@
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="H4d-V0-L5e" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="aO6-nd-e00"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sz2-hP-a4q">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -52,6 +69,7 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="dxE-yQ-Wiq"/>
                         <segue destination="wVd-fj-fIN" kind="relationship" relationship="viewControllers" id="6FM-JF-WLk"/>
+                        <segue destination="nPR-j6-c2o" kind="relationship" relationship="viewControllers" id="9yx-gT-tNl"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BF0-fm-1bD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -29,4 +29,22 @@ struct APIHandler {
             completion(data, error)
         } .resume()
     }
+    
+    static func request (on requestCategory: RequestCategory, city: String, completion: @escaping (Data?, Error?) -> Void) {
+        
+        let optURL = URLBuilder()
+            .set(scheme: Constants.scheme)
+            .set(host: Constants.host)
+            .set(path: Constants.path + requestCategory.rawValue)
+            .addQueryItem(name: "q", value: "\(city)")
+            .addQueryItem(name: "units", value: Constants.metriFormat)
+            .addQueryItem(name: "appid", value: Constants.apiKey)
+            .build()
+        
+        guard let url = optURL else {return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            completion(data, error)
+        } .resume()
+    }
 }

@@ -22,9 +22,11 @@
 		F350F4DC2506BE1400899356 /* CurrentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4DB2506BE1400899356 /* CurrentViewModel.swift */; };
 		F350F4DF250770B800899356 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4DE250770B800899356 /* Storage.swift */; };
 		F350F4E225084A6900899356 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F350F4E125084A6900899356 /* UIColor.swift */; };
+		F3797BE8250D4136005BEA9C /* SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3797BE7250D4136005BEA9C /* SearchBarDelegate.swift */; };
 		F399C111250434BA00A7B321 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F399C110250434BA00A7B321 /* Constants.swift */; };
 		F399C1132504B20D00A7B321 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F399C1122504B20D00A7B321 /* Alert.swift */; };
 		F3AECA92250BA782008CBDF6 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AECA91250BA782008CBDF6 /* Converter.swift */; };
+		F3AECA95250CE1E0008CBDF6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AECA94250CE1E0008CBDF6 /* SearchViewController.swift */; };
 		F3DFEB722504D520002DBDD5 /* ActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DFEB712504D520002DBDD5 /* ActivityVC.swift */; };
 		F3F462BB2502722D00A7C0B6 /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */; };
 		F3F462BF25027A7B00A7C0B6 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F462BE25027A7B00A7C0B6 /* APIHandler.swift */; };
@@ -53,9 +55,11 @@
 		F350F4DB2506BE1400899356 /* CurrentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentViewModel.swift; sourceTree = "<group>"; };
 		F350F4DE250770B800899356 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		F350F4E125084A6900899356 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		F3797BE7250D4136005BEA9C /* SearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarDelegate.swift; sourceTree = "<group>"; };
 		F399C110250434BA00A7B321 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F399C1122504B20D00A7B321 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		F3AECA91250BA782008CBDF6 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
+		F3AECA94250CE1E0008CBDF6 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F3DFEB712504D520002DBDD5 /* ActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityVC.swift; sourceTree = "<group>"; };
 		F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
 		F3F462BE25027A7B00A7C0B6 /* APIHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 				F340DE0A2501081500D5D3EA /* SceneDelegate.swift */,
 				F340DE1E2501097200D5D3EA /* Today */,
 				F340DE1F2501098700D5D3EA /* Forecast */,
+				F3AECA93250CE19C008CBDF6 /* Search */,
 				F3F462C92503ECB100A7C0B6 /* Handlers */,
 				F3F462BD25027A5500A7C0B6 /* NetworkService */,
 				F350F4E0250770BE00899356 /* Storage */,
@@ -181,6 +186,22 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		F3AECA93250CE19C008CBDF6 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				F3AECA96250CE1E5008CBDF6 /* View */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		F3AECA96250CE1E5008CBDF6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F3AECA94250CE1E0008CBDF6 /* SearchViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		F3F462BC25027A1F00A7C0B6 /* CommonFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,6 +239,7 @@
 				F3F462C72503EC9700A7C0B6 /* WeatherConditionHandler.swift */,
 				F350F4D42506582B00899356 /* DaysHandler.swift */,
 				F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */,
+				F3797BE7250D4136005BEA9C /* SearchBarDelegate.swift */,
 				F3AECA91250BA782008CBDF6 /* Converter.swift */,
 			);
 			path = Handlers;
@@ -305,6 +327,7 @@
 				F340A432250213D100918BDE /* UIStackView.swift in Sources */,
 				F350F4DF250770B800899356 /* Storage.swift in Sources */,
 				F3F462CD250423C800A7C0B6 /* URLBuilder.swift in Sources */,
+				F3797BE8250D4136005BEA9C /* SearchBarDelegate.swift in Sources */,
 				F3DFEB722504D520002DBDD5 /* ActivityVC.swift in Sources */,
 				F399C1132504B20D00A7B321 /* Alert.swift in Sources */,
 				F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */,
@@ -312,6 +335,7 @@
 				F350F4DC2506BE1400899356 /* CurrentViewModel.swift in Sources */,
 				F399C111250434BA00A7B321 /* Constants.swift in Sources */,
 				F3F462C12502C5EE00A7C0B6 /* DataHandler.swift in Sources */,
+				F3AECA95250CE1E0008CBDF6 /* SearchViewController.swift in Sources */,
 				F340DE0B2501081500D5D3EA /* SceneDelegate.swift in Sources */,
 				F3F462BB2502722D00A7C0B6 /* LocationManagerDelegate.swift in Sources */,
 				F3F462BF25027A7B00A7C0B6 /* APIHandler.swift in Sources */,

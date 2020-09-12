@@ -57,3 +57,24 @@ extension CurrentViewModel: CurrentLocationDelegate {
     }
 }
 
+extension CurrentViewModel: SearchDelegate {
+    func getWeather(on requestCategory: RequestCategory, city: String) {
+        
+        DataHandler.getData(on: requestCategory, city: city) { [weak self] (currentWeather, error) in
+            
+            switch error {
+            case nil:
+                guard let currentWeather = currentWeather else {return}
+                print(currentWeather)
+                self?.currentViewModelDelegate?.updateData(currentWeather)
+                
+            default:
+                print(String(describing: error?.localizedDescription))
+            }
+            
+        }
+    }
+    
+    
+}
+
