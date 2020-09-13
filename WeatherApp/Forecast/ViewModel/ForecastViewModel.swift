@@ -19,6 +19,7 @@ class ForecastViewModel {
     
     var forecastViewModelDelegate: ForecastViewModelDelegate?
     let list: List
+    private var dataHasReceived = false
     
     init(list: List) {
         self.list = list
@@ -35,16 +36,23 @@ class ForecastViewModel {
 extension ForecastViewModel: ForecastLocationDelegate {
     
     func getForecast(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        DataHandler.getInfo(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (forecastWeather, error) in
+        
+        switch  dataHasReceived {
+        case false:
             
-            switch error {
-            case nil:
-                guard let forecastWeather = forecastWeather else {return}
-                self?.forecastViewModelDelegate?.updateData(forecastWeather)
+            DataHandler.getInfo(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (forecastWeather, error) in
                 
-            default:
-                print(String(describing: error?.localizedDescription))
+                switch error {
+                case nil:
+                    self?.dataHasReceived = true
+                    guard let forecastWeather = forecastWeather else {return}
+                    self?.forecastViewModelDelegate?.updateData(forecastWeather)
+                default:
+                    print(String(describing: error?.localizedDescription))
+                }
             }
+        default:
+            break
         }
     }
 }

@@ -19,6 +19,7 @@ class CurrentViewModel {
     
     var currentViewModelDelegate: CurrentViewModelDelegate?
     var currentWeather: CurrentWeather
+    private var dataHasReceived = false
     
     init(currentWeather: CurrentWeather) {
         self.currentWeather = currentWeather
@@ -35,7 +36,31 @@ class CurrentViewModel {
 extension CurrentViewModel: CurrentLocationDelegate {
     
     func getWeather(on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        DataHandler.getData(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (currentWeather, error) in
+        
+        switch dataHasReceived {
+        case false:
+            DataHandler.getData(on: requestCategory, latitude: latitude, longitude: longitude) { [weak self] (currentWeather, error) in
+                
+                switch error {
+                case nil:
+                    self?.dataHasReceived = true
+                    guard let currentWeather = currentWeather else {return}
+                    self?.currentViewModelDelegate?.updateData(currentWeather)
+                    
+                default:
+                    print(String(describing: error?.localizedDescription))
+                }
+            }
+        default:
+            break
+        }
+    }
+}
+
+extension CurrentViewModel: SearchDelegate {
+    func getWeather(on requestCategory: RequestCategory, city: String) {
+        
+        DataHandler.getData(on: requestCategory, city: city) { [weak self] (currentWeather, error) in
             
             switch error {
             case nil:
@@ -45,6 +70,7 @@ extension CurrentViewModel: CurrentLocationDelegate {
             default:
                 print(String(describing: error?.localizedDescription))
             }
+            
         }
     }
 }

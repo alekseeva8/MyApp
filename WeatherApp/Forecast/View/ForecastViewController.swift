@@ -45,6 +45,12 @@ class ForecastViewController: UIViewController {
     
     var forecastViewModel: ForecastViewModel?
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.color = .darkGray
+        return activityIndicator
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,6 +68,10 @@ class ForecastViewController: UIViewController {
         tableView.register(ForecastTableViewCell.self, forCellReuseIdentifier: ForecastTableViewCell.reuseID)
         
         configureLocationManager()
+        
+        view.addSubview(activityIndicator)
+        configureActivityIndicator()
+        activityIndicator.startAnimating()
     }
     
     //MARK: - configure()
@@ -88,7 +98,14 @@ class ForecastViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
-    
+
+    //MARK: - configureActivityIndicator()      
+    private func configureActivityIndicator() {                          
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.hidesWhenStopped = true
+    }
     
     //MARK: - configureLocationManager()
     private func configureLocationManager() {
@@ -126,6 +143,7 @@ extension ForecastViewController: ForecastViewModelDelegate {
         self.groupedForecastViewModels = DaysHandler.groupDays(self.forecastViewModels)
         
         self.tableView.reloadData()
+        activityIndicator.stopAnimating()
     }
 }
 
@@ -134,6 +152,23 @@ extension ForecastViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         groupedForecastViewModels.count
+    }
+    
+        func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        getDate(in: section)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        groupedForecastViewModels[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ForecastTableViewCell.reuseID, for: indexPath) as! ForecastTableViewCell
+        
+        let forecastViewModel = groupedForecastViewModels[indexPath.section][indexPath.row]
+        cell.forecastViewModel = forecastViewModel
+        
+        return cell
     }
     
     func getDate(in section: Int) -> String {
@@ -150,36 +185,6 @@ extension ForecastViewController: UITableViewDataSource {
             date = "\(day).\(month).\(year)"
         }
         return date
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        var date = ""
-        
-        if let days = groupedForecastViewModels[section].first {
-            let time = days.list.time
-            let timeSplitted = time.split(separator: " ")
-            date = String(timeSplitted.first ?? "")
-            let dateSplitted = date.split(separator: "-")
-            let day = dateSplitted[2]
-            let month = dateSplitted[1]
-            let year = dateSplitted[0]
-            date = "\(day).\(month).\(year)"
-        }
-        return date
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        groupedForecastViewModels[section].count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ForecastTableViewCell.reuseID, for: indexPath) as! ForecastTableViewCell
-        
-        let forecastViewModel = groupedForecastViewModels[indexPath.section][indexPath.row]
-        cell.forecastViewModel = forecastViewModel
-        
-        return cell
     }
 }
 

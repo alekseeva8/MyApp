@@ -1,15 +1,14 @@
 //
-//  TodayViewController.swift
+//  SearchViewController.swift
 //  WeatherApp
 //
-//  Created by Elena Alekseeva on 9/3/20.
+//  Created by Elena Alekseeva on 9/12/20.
 //  Copyright © 2020 Elena Alekseeva. All rights reserved.
 //
 
 import UIKit
-import CoreLocation
 
-class TodayViewController: UIViewController {
+class SearchViewController: UIViewController {
     
     var currentViewModel: CurrentViewModel! {
         didSet {
@@ -32,14 +31,6 @@ class TodayViewController: UIViewController {
         return bgView
     }()
     
-    private let headerLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Today" 
-        label.font = UIFont.systemFont(ofSize: 20)
-        label.textColor = .black
-        return label
-    }()
-    
     private let headerView: UIImageView = {
         let frame = CGRect(x: 0, y: 0, width: 375, height: 70)
         let view = UIImageView(frame: frame)
@@ -47,6 +38,12 @@ class TodayViewController: UIViewController {
         view.layer.borderColor = UIColor.black.cgColor
         view.backgroundColor = UIColor.headerViewColor
         return view
+    }()
+    
+    private let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Enter city name"
+        return searchBar
     }()
     
     private var imageView: UIImageView = {
@@ -78,34 +75,14 @@ class TodayViewController: UIViewController {
     private var minTempLabel = UILabel()
     private var maxTempLabel = UILabel()
     
-    private let shareButton: UIButton = {
-        let buttonFrame = CGRect(x: 0, y: 0, width: 128, height: 42)
-        let button = UIButton(frame: buttonFrame)
-        button.setTitle("Share", for: .normal)
-        button.setTitleColor(.orange, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20) 
-        return button
-    }()
-    
     private let headerViewHeight = 60
     private let topStackViewHeight = 160
     private let topStackHeight = 40
     private let bottomStackHeight = 40
-    private let shareButtonHeight = 20
     
-    private var locationManagerDelegate: LocationManagerDelegate?
-    private var locationManager = CLLocationManager()
-    
-    private var textToShare: [String] = []
-    
-    private let activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.color = .darkGray
-        return activityIndicator
-    }()
+    private var searchBarDelegate: SearchBarDelegate?
     
     
-    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -118,15 +95,21 @@ class TodayViewController: UIViewController {
         currentViewModel = CurrentViewModel(currentWeather: currentWeather)
         
         currentViewModel.currentViewModelDelegate = self
-        currentViewModel.getWeatherFromCache()
-        
-        configureLocationManager()
         
         configure() 
+        configureSearchBar()
         
-        view.addSubview(activityIndicator)
-        configureActivityIndicator()
-        activityIndicator.startAnimating()
+        searchBarDelegate = SearchBarDelegate()
+        searchBar.delegate = searchBarDelegate
+        searchBarDelegate?.searchDelegate = self.currentViewModel
+    }
+    
+    private func configureSearchBar() {
+        view.addSubview(searchBar)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 2).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -2).isActive = true
+        searchBar.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0).isActive = true
     }
     
     //MARK: - configure()    
@@ -142,13 +125,8 @@ class TodayViewController: UIViewController {
         headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 2).isActive = true
         headerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: CGFloat(headerViewHeight)).isActive = true
         
-        view.addSubview(headerLabel)
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -15).isActive = true
-        headerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
         let safeAreaHeight = view.bounds.height - 10 - 90
-        let heightsToSubtract = CGFloat(headerViewHeight + topStackViewHeight + topStackHeight + 10 + bottomStackHeight + shareButtonHeight)
+        let heightsToSubtract = CGFloat(headerViewHeight + topStackViewHeight + topStackHeight + 10 + bottomStackHeight + 20)
         let distance = (safeAreaHeight - heightsToSubtract) / 4
         
         view.addSubview(topStackView)
@@ -164,7 +142,6 @@ class TodayViewController: UIViewController {
         topStackView.spacing = 10
         topStackView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: distance).isActive = true
         topStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
         
         view.addSubview(topStack)
         let humidityStack = createSubstackView(category: .humidity)
@@ -191,36 +168,6 @@ class TodayViewController: UIViewController {
         bottomStack.translatesAutoresizingMaskIntoConstraints = false
         bottomStack.centerXAnchor.constraint(equalTo: topStack.centerXAnchor).isActive = true
         bottomStack.topAnchor.constraint(equalTo: topStack.bottomAnchor, constant: 30).isActive = true
-        
-        view.addSubview(shareButton)
-        shareButton.translatesAutoresizingMaskIntoConstraints = false
-        shareButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
-        shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-    }
-    
-    //MARK: - configureActivityIndicator()    
-    private func configureActivityIndicator() {                          
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.centerYAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: 30).isActive = true
-        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        activityIndicator.hidesWhenStopped = true
-    }
-    
-    //MARK: - shareButtonTapped()
-    @objc func shareButtonTapped() {
-        let activityVC = ActivityVC(presentor: self)
-        activityVC.share(text: textToShare)
-    }
-    
-    //MARK: - configureLocationManager()
-    private func configureLocationManager() {
-        locationManagerDelegate = LocationManagerDelegate()
-        locationManager.delegate = locationManagerDelegate
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        locationManagerDelegate?.currentLocationDelegate = self.currentViewModel
     }
     
     //MARK: - createSubstackView()
@@ -271,28 +218,12 @@ class TodayViewController: UIViewController {
     }
 }
 
-//MARK: - CurrentViewModelDelegate
-extension TodayViewController: CurrentViewModelDelegate {
-    
+extension SearchViewController: CurrentViewModelDelegate {
     func useData(_ data: CurrentWeather) {
-        currentViewModel = CurrentViewModel(currentWeather: data)
-        textToShare = composeText(from: currentViewModel)
-        headerLabel.text = "Downloading..."
-        headerLabel.font = UIFont.systemFont(ofSize: 17)
+        return
     }
     
     func updateData(_ data: CurrentWeather) {
         currentViewModel = CurrentViewModel(currentWeather: data)
-        textToShare = self.composeText(from: currentViewModel)
-        headerLabel.text = "Today"
-        headerLabel.font = UIFont.systemFont(ofSize: 20)
-        activityIndicator.stopAnimating()
-    }
-    
-    private func composeText(from viewModel: CurrentViewModel) -> [String] {
-        
-        let data = Converter.convert(viewModel)
-        let text = "City: \(data.city), country: \(data.country). \(data.description), \(data.temperature)°C. Humidity: \(data.humidity)%. Air pressure: \(data.pressure)hPa. Wind speed: \(data.windSpeed)\nkm/h"
-        return [text]
     }
 }
