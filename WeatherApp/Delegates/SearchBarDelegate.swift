@@ -20,7 +20,7 @@ class SearchBarDelegate: NSObject, UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [weak self] (_) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false, block: { [weak self] (_) in
             self?.searchDelegate?.getWeather(on: .currentWeather, city: searchText)
         })
     }

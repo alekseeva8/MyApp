@@ -27,7 +27,7 @@ class SearchViewController: UIViewController {
     private let backgroundView: UIImageView = {
         let image = UIImage(named: "splash")
         let bgView = UIImageView(image: image)
-        bgView.alpha = 0.3
+        bgView.alpha = 0.4
         return bgView
     }()
     
@@ -115,6 +115,7 @@ class SearchViewController: UIViewController {
     //MARK: - configure()    
     private func configure() {
         
+        view.backgroundColor = .white
         view.addSubview(backgroundView)
         
         view.addSubview(headerView)

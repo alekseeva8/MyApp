@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F302A62D2504F9AA00211BC7 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302A62C2504F9AA00211BC7 /* ForecastTableViewCell.swift */; };
 		F30B436D250E210E005C3D48 /* WeatherCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B436C250E210E005C3D48 /* WeatherCategory.swift */; };
+		F30B4377250E3BB2005C3D48 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B4376250E3BB2005C3D48 /* TabBarViewController.swift */; };
 		F326F6B4250519A600066F1F /* ForecastWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326F6B3250519A600066F1F /* ForecastWeather.swift */; };
 		F340A432250213D100918BDE /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340A431250213D100918BDE /* UIStackView.swift */; };
 		F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE082501081500D5D3EA /* AppDelegate.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		F302A62C2504F9AA00211BC7 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
 		F30B436C250E210E005C3D48 /* WeatherCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCategory.swift; sourceTree = "<group>"; };
+		F30B4376250E3BB2005C3D48 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		F326F6B3250519A600066F1F /* ForecastWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeather.swift; sourceTree = "<group>"; };
 		F340A431250213D100918BDE /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		F340DE052501081500D5D3EA /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +110,23 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		F30B4375250E3B8A005C3D48 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				F30B4376250E3BB2005C3D48 /* TabBarViewController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		F30B4378250E411F005C3D48 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */,
+				F3797BE7250D4136005BEA9C /* SearchBarDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		F340DDFC2501081500D5D3EA = {
 			isa = PBXGroup;
 			children = (
@@ -128,18 +147,20 @@
 			isa = PBXGroup;
 			children = (
 				F340DE132501081700D5D3EA /* LaunchScreen.storyboard */,
-				F340DE0E2501081500D5D3EA /* Main.storyboard */,
 				F340DE082501081500D5D3EA /* AppDelegate.swift */,
 				F340DE0A2501081500D5D3EA /* SceneDelegate.swift */,
+				F30B4375250E3B8A005C3D48 /* TabBar */,
 				F340DE1E2501097200D5D3EA /* Today */,
 				F340DE1F2501098700D5D3EA /* Forecast */,
 				F3AECA93250CE19C008CBDF6 /* Search */,
-				F3F462C92503ECB100A7C0B6 /* Handlers */,
 				F3F462BD25027A5500A7C0B6 /* NetworkService */,
+				F3F462C92503ECB100A7C0B6 /* Handlers */,
+				F30B4378250E411F005C3D48 /* Delegates */,
 				F350F4E0250770BE00899356 /* Storage */,
 				F3F462BC25027A1F00A7C0B6 /* CommonFiles */,
 				F340DE112501081700D5D3EA /* Assets.xcassets */,
 				F340DE162501081700D5D3EA /* Info.plist */,
+				F340DE0E2501081500D5D3EA /* Main.storyboard */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -241,8 +262,6 @@
 			children = (
 				F3F462C72503EC9700A7C0B6 /* WeatherConditionHandler.swift */,
 				F350F4D42506582B00899356 /* DaysHandler.swift */,
-				F3F462BA2502722D00A7C0B6 /* LocationManagerDelegate.swift */,
-				F3797BE7250D4136005BEA9C /* SearchBarDelegate.swift */,
 				F3AECA91250BA782008CBDF6 /* Converter.swift */,
 			);
 			path = Handlers;
@@ -323,6 +342,7 @@
 				F3F462C32502CF2A00A7C0B6 /* CurrentWeather.swift in Sources */,
 				F30B436D250E210E005C3D48 /* WeatherCategory.swift in Sources */,
 				F326F6B4250519A600066F1F /* ForecastWeather.swift in Sources */,
+				F30B4377250E3BB2005C3D48 /* TabBarViewController.swift in Sources */,
 				F350F4D72506957F00899356 /* ForecastViewModel.swift in Sources */,
 				F340DE0D2501081500D5D3EA /* TodayViewController.swift in Sources */,
 				F3F462CB2504234700A7C0B6 /* RequestCategory.swift in Sources */,
