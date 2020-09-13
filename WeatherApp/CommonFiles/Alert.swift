@@ -19,4 +19,14 @@ struct Alert {
         alert.addAction(action)
         sender.present(alert, animated: true, completion: nil)
     }
+    
+    static func noInternetConnection(_ sender: UIViewController) {
+        
+        let title = "No internet connection"
+        let message = "Please connect to the internet"
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        sender.present(alert, animated: true, completion: nil)
+    }
 }

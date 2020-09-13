@@ -127,6 +127,8 @@ class TodayViewController: UIViewController {
         view.addSubview(activityIndicator)
         configureActivityIndicator()
         activityIndicator.startAnimating()
+        
+        APIHandler.viewController = self
     }
     
     //MARK: - configure()    

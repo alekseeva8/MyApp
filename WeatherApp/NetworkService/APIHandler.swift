@@ -12,6 +12,8 @@ import CoreLocation
 struct APIHandler {
     
     static weak var viewController: UIViewController?
+    static private var alertHasShown = false
+    static private var alertHasShownSearchVC = false
     
     static func request (on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (Data?, Error?) -> Void) {
         
@@ -27,7 +29,18 @@ struct APIHandler {
         
         guard let url = optURL else {return }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            completion(data, error)
+            switch error {
+            case nil:
+                completion(data, error)
+            default:
+                if alertHasShown == false {
+                    guard let viewController = viewController else {return}
+                    DispatchQueue.main.async {
+                        Alert.noInternetConnection(viewController)
+                        alertHasShown = true
+                    }
+                }
+            }
         } .resume()
     }
     
@@ -44,7 +57,18 @@ struct APIHandler {
         
         guard let url = optURL else {return }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            completion(data, error)
+            switch error {
+            case nil:
+                completion(data, error)
+            default:
+                if alertHasShownSearchVC == false {
+                    guard let viewController = viewController else {return}
+                    DispatchQueue.main.async {
+                        Alert.noInternetConnection(viewController)
+                        alertHasShownSearchVC = true
+                    }
+                }
+            }
         } .resume()
     }
 }
