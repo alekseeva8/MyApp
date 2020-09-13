@@ -25,14 +25,6 @@ class TodayViewController: UIViewController {
         }
     }
     
-    private enum Category: String {
-        case humidity = "Humidity" 
-        case airPressure = "Pressure"
-        case wind = "Wind" 
-        case minTemperature = "MinTemp"
-        case maxTemperature = "MaxTemp"
-    }
-    
     private let backgroundView: UIImageView = {
         let image = UIImage(named: "splash")
         let bgView = UIImageView(image: image)
@@ -40,7 +32,7 @@ class TodayViewController: UIViewController {
         return bgView
     }()
     
-     private let headerLabel: UILabel = {
+    private let headerLabel: UILabel = {
         let label = UILabel()
         label.text = "Today" 
         label.font = UIFont.systemFont(ofSize: 20)
@@ -205,7 +197,7 @@ class TodayViewController: UIViewController {
         shareButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
     }
-
+    
     //MARK: - configureActivityIndicator()    
     private func configureActivityIndicator() {                          
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false

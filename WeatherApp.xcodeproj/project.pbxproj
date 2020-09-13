@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F302A62D2504F9AA00211BC7 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F302A62C2504F9AA00211BC7 /* ForecastTableViewCell.swift */; };
+		F30B436D250E210E005C3D48 /* WeatherCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30B436C250E210E005C3D48 /* WeatherCategory.swift */; };
 		F326F6B4250519A600066F1F /* ForecastWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326F6B3250519A600066F1F /* ForecastWeather.swift */; };
 		F340A432250213D100918BDE /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340A431250213D100918BDE /* UIStackView.swift */; };
 		F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE082501081500D5D3EA /* AppDelegate.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		F302A62C2504F9AA00211BC7 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
+		F30B436C250E210E005C3D48 /* WeatherCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCategory.swift; sourceTree = "<group>"; };
 		F326F6B3250519A600066F1F /* ForecastWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeather.swift; sourceTree = "<group>"; };
 		F340A431250213D100918BDE /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		F340DE052501081500D5D3EA /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,6 +212,7 @@
 				F3DFEB712504D520002DBDD5 /* ActivityVC.swift */,
 				F3F462CA2504234700A7C0B6 /* RequestCategory.swift */,
 				F399C110250434BA00A7B321 /* Constants.swift */,
+				F30B436C250E210E005C3D48 /* WeatherCategory.swift */,
 				F399C1122504B20D00A7B321 /* Alert.swift */,
 			);
 			path = CommonFiles;
@@ -318,6 +321,7 @@
 			files = (
 				F302A62D2504F9AA00211BC7 /* ForecastTableViewCell.swift in Sources */,
 				F3F462C32502CF2A00A7C0B6 /* CurrentWeather.swift in Sources */,
+				F30B436D250E210E005C3D48 /* WeatherCategory.swift in Sources */,
 				F326F6B4250519A600066F1F /* ForecastWeather.swift in Sources */,
 				F350F4D72506957F00899356 /* ForecastViewModel.swift in Sources */,
 				F340DE0D2501081500D5D3EA /* TodayViewController.swift in Sources */,

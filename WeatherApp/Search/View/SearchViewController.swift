@@ -24,14 +24,6 @@ class SearchViewController: UIViewController {
         }
     }
     
-    private enum Category: String {
-        case humidity = "Humidity" 
-        case airPressure = "Pressure"
-        case wind = "Wind" 
-        case minTemperature = "MinTemp"
-        case maxTemperature = "MaxTemp"
-    }
-    
     private let backgroundView: UIImageView = {
         let image = UIImage(named: "splash")
         let bgView = UIImageView(image: image)

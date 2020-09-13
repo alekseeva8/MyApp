@@ -65,7 +65,6 @@ extension CurrentViewModel: SearchDelegate {
             switch error {
             case nil:
                 guard let currentWeather = currentWeather else {return}
-                print(currentWeather)
                 self?.currentViewModelDelegate?.updateData(currentWeather)
                 
             default:
@@ -74,7 +73,5 @@ extension CurrentViewModel: SearchDelegate {
             
         }
     }
-    
-    
 }
 

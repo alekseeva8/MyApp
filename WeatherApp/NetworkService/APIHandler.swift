@@ -6,10 +6,12 @@
 //  Copyright © 2020 Elena Alekseeva. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CoreLocation
 
 struct APIHandler {
+    
+    static weak var viewController: UIViewController?
     
     static func request (on requestCategory: RequestCategory, latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (Data?, Error?) -> Void) {
         
@@ -24,7 +26,6 @@ struct APIHandler {
             .build()
         
         guard let url = optURL else {return }
-        
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             completion(data, error)
         } .resume()
@@ -42,7 +43,6 @@ struct APIHandler {
             .build()
         
         guard let url = optURL else {return }
-        
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             completion(data, error)
         } .resume()
