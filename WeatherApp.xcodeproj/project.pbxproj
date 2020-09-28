@@ -15,7 +15,6 @@
 		F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE082501081500D5D3EA /* AppDelegate.swift */; };
 		F340DE0B2501081500D5D3EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE0A2501081500D5D3EA /* SceneDelegate.swift */; };
 		F340DE0D2501081500D5D3EA /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE0C2501081500D5D3EA /* TodayViewController.swift */; };
-		F340DE102501081500D5D3EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F340DE0E2501081500D5D3EA /* Main.storyboard */; };
 		F340DE122501081700D5D3EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F340DE112501081700D5D3EA /* Assets.xcassets */; };
 		F340DE152501081700D5D3EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F340DE132501081700D5D3EA /* LaunchScreen.storyboard */; };
 		F340DE1D2501094B00D5D3EA /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE1C2501094B00D5D3EA /* ForecastViewController.swift */; };
@@ -49,7 +48,6 @@
 		F340DE082501081500D5D3EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F340DE0A2501081500D5D3EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F340DE0C2501081500D5D3EA /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
-		F340DE0F2501081500D5D3EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F340DE112501081700D5D3EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F340DE142501081700D5D3EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F340DE162501081700D5D3EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 				F3F462BC25027A1F00A7C0B6 /* CommonFiles */,
 				F340DE112501081700D5D3EA /* Assets.xcassets */,
 				F340DE162501081700D5D3EA /* Info.plist */,
-				F340DE0E2501081500D5D3EA /* Main.storyboard */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -327,7 +324,6 @@
 			files = (
 				F340DE152501081700D5D3EA /* LaunchScreen.storyboard in Resources */,
 				F340DE122501081700D5D3EA /* Assets.xcassets in Resources */,
-				F340DE102501081500D5D3EA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,14 +367,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F340DE0E2501081500D5D3EA /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F340DE0F2501081500D5D3EA /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F340DE132501081700D5D3EA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
