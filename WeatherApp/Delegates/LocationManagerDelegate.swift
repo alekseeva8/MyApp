@@ -20,7 +20,6 @@ protocol ForecastLocationDelegate: class {
 class LocationManagerDelegate: NSObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
-    weak var viewController: UIViewController?
     var currentLocationDelegate: CurrentLocationDelegate?
     weak var forecastLocationDelegate: ForecastLocationDelegate?
     

@@ -17,7 +17,7 @@ protocol CurrentViewModelDelegate: class {
 
 class CurrentViewModel {
     
-    var currentViewModelDelegate: CurrentViewModelDelegate?
+    weak var currentViewModelDelegate: CurrentViewModelDelegate?
     var currentWeather: CurrentWeather
     private var dataHasReceived = false
     

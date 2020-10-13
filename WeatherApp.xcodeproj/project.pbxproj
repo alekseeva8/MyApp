@@ -13,7 +13,6 @@
 		F326F6B4250519A600066F1F /* ForecastWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326F6B3250519A600066F1F /* ForecastWeather.swift */; };
 		F340A432250213D100918BDE /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340A431250213D100918BDE /* UIStackView.swift */; };
 		F340DE092501081500D5D3EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE082501081500D5D3EA /* AppDelegate.swift */; };
-		F340DE0B2501081500D5D3EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE0A2501081500D5D3EA /* SceneDelegate.swift */; };
 		F340DE0D2501081500D5D3EA /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340DE0C2501081500D5D3EA /* TodayViewController.swift */; };
 		F340DE122501081700D5D3EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F340DE112501081700D5D3EA /* Assets.xcassets */; };
 		F340DE152501081700D5D3EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F340DE132501081700D5D3EA /* LaunchScreen.storyboard */; };
@@ -46,7 +45,6 @@
 		F340A431250213D100918BDE /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		F340DE052501081500D5D3EA /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F340DE082501081500D5D3EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F340DE0A2501081500D5D3EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F340DE0C2501081500D5D3EA /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		F340DE112501081700D5D3EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F340DE142501081700D5D3EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -146,7 +144,6 @@
 			children = (
 				F340DE132501081700D5D3EA /* LaunchScreen.storyboard */,
 				F340DE082501081500D5D3EA /* AppDelegate.swift */,
-				F340DE0A2501081500D5D3EA /* SceneDelegate.swift */,
 				F30B4375250E3B8A005C3D48 /* TabBar */,
 				F340DE1E2501097200D5D3EA /* Today */,
 				F340DE1F2501098700D5D3EA /* Forecast */,
@@ -356,7 +353,6 @@
 				F399C111250434BA00A7B321 /* Constants.swift in Sources */,
 				F3F462C12502C5EE00A7C0B6 /* DataHandler.swift in Sources */,
 				F3AECA95250CE1E0008CBDF6 /* SearchViewController.swift in Sources */,
-				F340DE0B2501081500D5D3EA /* SceneDelegate.swift in Sources */,
 				F3F462BB2502722D00A7C0B6 /* LocationManagerDelegate.swift in Sources */,
 				F3F462BF25027A7B00A7C0B6 /* APIHandler.swift in Sources */,
 				F3F462C82503EC9700A7C0B6 /* WeatherConditionHandler.swift in Sources */,
@@ -499,6 +495,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9W292R69FX;
 				INFOPLIST_FILE = WeatherApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -517,6 +514,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9W292R69FX;
 				INFOPLIST_FILE = WeatherApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
